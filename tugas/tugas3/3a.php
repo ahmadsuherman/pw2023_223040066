@@ -2,10 +2,6 @@
 $r = 10;
 $phi = 3.14;
 
-function hitungDiameterLingkaran($r){
-    return $r * 2;
-}
-
 echo "<h4>Menghitung Luas Lingkaran</h4>";
 function hitungLuasLingkaran($r, $phi)  {
     $luasLingkaran = $phi * $r * $r;
