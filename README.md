@@ -16,7 +16,7 @@ git clone <url repository> <folder tujuan>
 
 ```
 user@host:~$ git clone https://github.com/ahmadsuherman/pw2023_223040066.git pw2023_223040066
-Cloning into 'instagram'...
+Cloning into 'pw2023_223040066'...
 remote: Counting objects: 4, done.
 remote: Compressing objects: 100% (4/4), done.
 remote: Total 4 (delta 0), reused 4 (delta 0), pack-reused 0
