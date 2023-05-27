@@ -1,0 +1,156 @@
+<?php
+
+class CategoryController extends Controller
+{
+    public function __construct()
+    {
+        if (empty($_SESSION['user'])) {
+            header('location:' . BASE_URL . '/login');
+        }
+    }
+
+    public function index()
+    {
+        
+        $data['title'] = 'Daftar Kategori';
+        $data['updateStatus'] = 'category/updateStatus';
+        
+        $data['categories'] = $this->model('Category')->getCategories();
+        $data['moment'] = true;
+        $data['dataTable'] = true;
+        $data['toastr'] = true;
+        $data['sweetalert2'] = true;
+        
+
+        $this->view('components/backend/header', $data);
+        $this->view('components/backend/navbar', $data);
+        $this->view('components/backend/sidebar', $data);
+        
+        $this->view('page/backend/categories/index', $data);
+        $this->view('components/backend/footer', $data);
+        $this->view('components/backend/script', $data);
+        
+    }
+
+    public function create()
+    {
+        // dd($_SESSION['user']);
+        $data['title'] = 'Tambah Kategori';
+
+        $this->view('components/backend/header', $data);
+        $this->view('components/backend/navbar', $data);
+        $this->view('components/backend/sidebar', $data);
+        
+        $this->view('page/backend/categories/create', $data);
+        $this->view('components/backend/footer', $data);
+        $this->view('components/backend/script', $data);
+    }
+
+    public function store()
+    {
+        if (isset($_POST['submit'])) {
+
+            $name = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
+            
+            $this->model('Category')->add(
+                name: $name,
+            );
+
+            $alert = [
+                'type'  => 'success',
+                'message' => $name . ' berhasil ditambahkan',
+            ];
+
+            header("location:" . BASE_URL . "/category");
+        
+            $_SESSION['alert'] = $alert;
+        }
+    }
+
+    public function edit($uid)
+    {
+        $data['title'] = 'Ubah Category';
+        $data['category'] = $this->model('Category')->findByUid(uid: $uid);
+  
+        if (!$data['category']) {
+            header("location:" . BASE_URL . "/category");
+        }
+
+        $this->view('components/backend/header', $data);
+        $this->view('components/backend/navbar', $data);
+        $this->view('components/backend/sidebar', $data);
+        
+        $this->view('page/backend/categories/edit', $data);
+        $this->view('components/backend/footer', $data);
+        $this->view('components/backend/script', $data);
+    }
+
+    public function update(string $uid)
+    {
+        if (isset($_POST['submit'])) {
+            $name = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
+            
+                $this->model('Category')->update(uid: $uid, name: $name);
+                
+                $alert = [
+                    'type'  => 'success',
+                    'message' => $name . ' berhasil diubah',
+                ];
+
+                $_SESSION['alert'] = $alert;
+
+                header("location:" . BASE_URL . "/category");
+            
+        }
+    }
+
+    public function updateStatus(string $uid)
+    {
+        $category = $this->model('Category')->findByUid(uid: $uid);
+        // dd($category['is_active']);
+        $this->model('Category')->updateStatus(uid: $uid, is_active: $category['is_active']);
+
+        $alert = [
+            'type'  => 'success',
+            'message' => 'Status ' . $category['name'] . ' berhasil diperbarui',
+        ];
+
+        $_SESSION['alert'] = $alert;
+
+        header("location:" . BASE_URL . "/category");
+    }
+
+    public function delete()
+    {
+        $id = stripslashes(strip_tags(htmlspecialchars($_POST['id'], ENT_QUOTES)));
+        $dataBarang = $this->model('M_barang')->getDataBarangById(id: $id);
+
+        unlink('assets/images/barang/' . $dataBarang['gambar']);
+
+        $this->model('M_barang')->deleteBarang(id: $id);
+
+        $alert = [
+            'title' => 'Berhasil',
+            'text' => 'Berhasil menghapus data barang',
+            'icon' => 'success',
+            'href' => BASE_URL . '/barang'
+        ];
+
+        $_SESSION['alert'] = $alert;
+
+        header("location:" . BASE_URL . "/barang");
+    }
+
+    function textToSlug(?string $text)
+    {
+        $text = trim($text);
+        if (empty($text)) return '';
+        $text = preg_replace("/[^a-zA-Z0-9\-\s]+/", "", $text);
+        $text = strtolower(trim($text));
+        $text = str_replace(' ', '-', $text);
+        $text = $text_ori = preg_replace('/\-{2,}/', '-', $text);
+        return $text;
+    }
+
+    
+}
