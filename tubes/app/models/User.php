@@ -3,7 +3,6 @@
 class User
 {
     private $table = "users";
-    private $tableUser = "tb_masyarakat";
     private $db;
 
     public function __construct()
@@ -65,25 +64,10 @@ class User
         return $this->db->single();
     }
 
-    public function getDataPengguna()
+    public function findByUid(string $uid)
     {
-        $this->db->query("SELECT * FROM $this->table");
-
-        return $this->db->resultSet();
-    }
-
-    public function getDataPenggunaById(int $id)
-    {
-        $this->db->query("SELECT * FROM $this->table WHERE id_user=:id");
-        $this->db->bind('id', $id);
-
-        return $this->db->single();
-    }
-
-    public function getDataPenggunaByUsername(string $username)
-    {
-        $this->db->query("SELECT * FROM $this->table WHERE username=:username");
-        $this->db->bind('username', $username);
+        $this->db->query("SELECT * FROM $this->table WHERE uid=:uid");
+        $this->db->bind('uid', $uid);
 
         return $this->db->single();
     }
@@ -125,51 +109,23 @@ class User
         return $mapPopupContent;
     }
 
-    public function getDataApi() {
-        // Logika untuk mengambil data dari database
-        // Contoh sederhana:
-        // $data = $this->db->query("SELECT * FROM users");
+    public function update(string $uid, string $name, string $email)
+    {
+        $this->db->query("UPDATE $this->table SET name=:name, email=:email WHERE uid=:uid");
+        $this->db->bind('uid', $uid);
+        $this->db->bind('name', $name);
+        $this->db->bind('email', $email);
 
-        // var_dump($data); die();
-        // $data = [
-        //   ['id' => 1, 'name' => 'John Doe'],
-        //   ['id' => 2, 'name' => 'Jane Smith'],
-        //   // ...
-        // ];
+        return $this->db->execute();
+    }
 
-        $a = $this->db->query("SELECT name, longitude, latitude FROM destinations");
-        dd($a);
-        $data = 
-        [
-            'type'      => 'FeatureCollection',
-            'features'  => [
-                "type"  => "Feature",
-                "properties" => $this->db->resultSet(),
-            ]
-            
-        ];
+    public function updatePassword(string $uid, string $password)
+    {
+        $this->db->query("UPDATE $this->table SET password=:password WHERE uid=:uid");
+        $this->db->bind('uid', $uid);
+        $this->db->bind('password', $password);
 
-        return $data;
-        
-        // $data = array(
-        //     "type" => "FeatureCollection",
-        //     "features" => array(
-        //         array(
-        //             "type" => "Feature",
-        //             // "properties" => $this->db->resultSet(),
-        //             "geometry" => array(
-        //                 "type" => "Point",
-        //                 "coordinates" => $this->db->resultSet(),
-        //             )
-        //         )
-        //     )
-        // );
-        
-        // $this->db->query("SELECT longitude, latitude FROM destinations");
-        // return $this->db->resultSet();
-        // return $data;
-        
-      }
-
+        return $this->db->execute();
+    }
       
 }
