@@ -7,6 +7,9 @@ class CategoryController extends Controller
         if (empty($_SESSION['user'])) {
             header('location:' . BASE_URL . '/login');
         }
+        if ($_SESSION['user']['level'] == 'Pengguna') {
+            header('location:' . BASE_URL . '/dashboard');
+        }
     }
 
     public function index()
@@ -36,6 +39,7 @@ class CategoryController extends Controller
     {
         // dd($_SESSION['user']);
         $data['title'] = 'Tambah Kategori';
+        $data['parsley'] = true;
 
         $this->view('components/backend/header', $data);
         $this->view('components/backend/navbar', $data);
@@ -49,7 +53,6 @@ class CategoryController extends Controller
     public function store()
     {
         if (isset($_POST['submit'])) {
-
             $name = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
             
             $this->model('Category')->add(
@@ -71,7 +74,8 @@ class CategoryController extends Controller
     {
         $data['title'] = 'Ubah Category';
         $data['category'] = $this->model('Category')->findByUid(uid: $uid);
-  
+        $data['parsley'] = true;
+        
         if (!$data['category']) {
             header("location:" . BASE_URL . "/category");
         }
@@ -94,13 +98,12 @@ class CategoryController extends Controller
                 
                 $alert = [
                     'type'  => 'success',
-                    'message' => $name . ' berhasil diubah',
+                    'message' => $name . ' berhasil diperbarui',
                 ];
 
                 $_SESSION['alert'] = $alert;
 
                 header("location:" . BASE_URL . "/category");
-            
         }
     }
 

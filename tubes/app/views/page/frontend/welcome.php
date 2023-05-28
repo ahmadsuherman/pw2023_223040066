@@ -1,7 +1,4 @@
 
-<style>
-    #mapid { min-height: 500px; }
-</style> 
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
     <!-- Main content -->
@@ -26,7 +23,7 @@
               ?> 
               <div class="col-md-6">
                 <div class="card mb-2 bg-gradient-dark">
-                  <img class="card-img-top" src="<?= BASE_URL ?>/back-office/img/photo1.png" alt="Gambar <?= $newDestination['name']; ?>">
+                  <img height="410" class="card-img-top" src="<?= BASE_URL ?>/uploads/img/destination/<?= $newDestination['image'] ?>" alt="Gambar <?= $newDestination['name']; ?>">
                   <div class="card-img-overlay d-flex flex-column justify-content-end">
                   <h5 class="card-title text-primary text-white"><?= $newDestination['name']; ?></h5>
                   <a href="#" class="text-white">Terakhir diperbarui <?= getUpdatedAtFormatDestination($newDestination['updated_at']); ?></a>
@@ -42,7 +39,7 @@
               ?>
                 <div class="col-md-6">
                   <div class="card mb-2 bg-gradient-dark">
-                    <img class="card-img-top" src="<?= BASE_URL ?>/back-office/img/photo1.png" alt="Gambar <?= $newDestination['name']; ?>">
+                    <img width="100" height="200" class="card-img-top" src="<?= BASE_URL ?>/uploads/img/destination/<?= $newDestination['image'] ?>" alt="Gambar <?= $newDestination['name']; ?>">
                     <div class="card-img-overlay d-flex flex-column justify-content-end">
                     <h5 class="card-title text-primary text-white"><?= $newDestination['name']; ?></h5>
                     <a href="#" class="text-white">Terakhir diperbarui <?= getUpdatedAtFormatDestination($newDestination['updated_at']); ?></a>

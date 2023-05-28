@@ -11,7 +11,7 @@
     <meta property="og:image" content="<?= BASE_URL ?>/logo.png" />
     <meta property="og:keywords" content="Pasundan Tourism"/>
     <title><?= $data['title'] . ' - ' . APP_NAME ?></title>
-
+    <link rel="shortcut icon" href="<?= BASE_URL ?>/logo-2.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="<?= BASE_URL ?>/back-office/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/back-office/css/adminlte.min.css">
@@ -22,6 +22,9 @@
         crossorigin=""/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <style>
+      #mapid { height: 500px; }
+    </style>
     <?php } ?>
 </head>
 <body class="hold-transition layout-top-nav">

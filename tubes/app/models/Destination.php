@@ -12,65 +12,117 @@ class Destination
 
     public function getDestinations()
     {
-        $this->db->query("SELECT destinations.*, CONCAT(latitude, ',', longitude) AS coordinates, categories.name AS category_name FROM $this->table LEFT JOIN categories ON destinations.category_id = categories.id");
+        $this->db->query("SELECT 
+            destinations.*, 
+            CONCAT(latitude, ',', longitude) AS coordinates, 
+            categories.name AS category_name 
+        FROM $this->table 
+        LEFT JOIN categories ON destinations.category_id = categories.id 
+        WHERE destinations.deleted_at <=> null
+        ORDER BY destinations.created_at DESC");
 
         return $this->db->resultSet();
     }
 
     public function getNewDestinations()
     {
-        $this->db->query("SELECT * FROM $this->table ORDER BY created_at DESC LIMIT 5");
+        $this->db->query("SELECT * FROM $this->table 
+        WHERE destinations.deleted_at <=> null
+        ORDER BY created_at 
+        DESC LIMIT 5 ");
 
         return $this->db->resultSet();
     }
 
-    public function addBarang(string $namaGambar, string $namaBarang, String $tgl, int $hargaAwal, string $deskripsiBarang)
+    public function findByUid(string $uid)
     {
-        $this->db->query("INSERT INTO $this->table(gambar, nama_barang, tgl, harga_awal, deskripsi_barang) VALUE (:gambar, :nama_barang, :tgl, :harga_awal, :deskripsi_barang)");
-        $this->db->bind('gambar', $namaGambar);
-        $this->db->bind('nama_barang', $namaBarang);
-        $this->db->bind('tgl', $tgl);
-        $this->db->bind('harga_awal', $hargaAwal);
-        $this->db->bind('deskripsi_barang', $deskripsiBarang);
-
-        return $this->db->execute();
-    }
-
-    public function getDataBarangById(int $id)
-    {
-        $this->db->query("SELECT * FROM $this->table WHERE id_barang=:id");
-        $this->db->bind('id', $id);
-
+        $this->db->query("SELECT destinations.*, categories.name AS category_name FROM $this->table LEFT JOIN categories ON destinations.category_id = categories.id WHERE destinations.uid=:uid");
+        $this->db->bind('uid', $uid);
+        
         return $this->db->single();
     }
 
-    public function updateBarang(int $id, ?string $namaGambar, string $namaBarang, String $tgl, int $hargaAwal, string $deskripsiBarang)
+    public function add(string $imageName, string $name, int $categoryId, string $description, string $latitude, string $longitude)
     {
-        if (is_null($namaGambar)) {
-            $this->db->query("UPDATE $this->table SET nama_barang=:nama_barang, tgl=:tgl, harga_awal=:harga_awal, deskripsi_barang=:deskripsi_barang WHERE id_barang=:id");
-            $this->db->bind('id', $id);
-            $this->db->bind('nama_barang', $namaBarang);
-            $this->db->bind('tgl', $tgl);
-            $this->db->bind('harga_awal', $hargaAwal);
-            $this->db->bind('deskripsi_barang', $deskripsiBarang);
-        } else {
-            $this->db->query("UPDATE $this->table SET gambar=:gambar, nama_barang=:nama_barang, tgl=:tgl, harga_awal=:harga_awal, deskripsi_barang=:deskripsi_barang WHERE id_barang=:id");
-            $this->db->bind('id', $id);
-            $this->db->bind('gambar', $namaGambar);
-            $this->db->bind('nama_barang', $namaBarang);
-            $this->db->bind('tgl', $tgl);
-            $this->db->bind('harga_awal', $hargaAwal);
-            $this->db->bind('deskripsi_barang', $deskripsiBarang);
-        }
+        $this->db->query("INSERT INTO $this->table(
+            uid, 
+            category_id, 
+            name, 
+            description, 
+            image, 
+            latitude, 
+            longitude, 
+            created_by, 
+            updated_by, 
+            created_at, 
+            updated_at
+        ) VALUE (
+            :uid, 
+            :category_id, 
+            :name, 
+            :description, 
+            :image, 
+            :latitude, 
+            :longitude, 
+            :created_by, 
+            :updated_by, 
+            :created_at, 
+            :updated_at
+        )");
+
+        $this->db->bind('uid', createUid());
+        $this->db->bind('category_id', $categoryId);
+        $this->db->bind('name', $name);
+        $this->db->bind('description', $description);
+        $this->db->bind('image', $imageName);
+        $this->db->bind('latitude', $latitude);
+        $this->db->bind('longitude', $longitude);
+        $this->db->bind('created_by', $_SESSION['user']['id']);
+        $this->db->bind('updated_by', $_SESSION['user']['id']);
+        $this->db->bind('created_at', now());
+        $this->db->bind('updated_at', now());
 
         return $this->db->execute();
     }
 
-    public function deleteBarang(int $id)
+    public function update(string $uid, string $imageName, string $name, int $categoryId, string $description, string $latitude, string $longitude)
     {
-        $this->db->query("DELETE FROM $this->table WHERE id_barang=:id");
-        $this->db->bind('id', $id);
+        // dd($longitude);
+        $this->db->query("UPDATE $this->table SET 
+            category_id=:category_id, 
+            name=:name, 
+            description=:description, 
+            image=:image,
+            latitude=:latitude,
+            longitude=:longitude,
+            updated_by=:updated_by,
+            updated_at=:updated_at WHERE uid=:uid");
 
+        $this->db->bind('uid', $uid);
+        $this->db->bind('category_id', $categoryId);
+        $this->db->bind('name', $name);
+        $this->db->bind('description', $description);
+        $this->db->bind('image', $imageName);
+        $this->db->bind('latitude', $latitude);
+        $this->db->bind('longitude', $longitude);
+        $this->db->bind('updated_by', $_SESSION['user']['id']);
+        $this->db->bind('updated_at', now());
+
+        return $this->db->execute();
+    }
+
+    public function delete(string $uid)
+    {
+        // dd($uid);
+        $this->db->query("UPDATE $this->table SET 
+            deleted_by=:deleted_by,
+            deleted_at=:deleted_at 
+        WHERE uid=:uid");
+
+        $this->db->bind('uid', $uid);
+        $this->db->bind('deleted_by', $_SESSION['user']['id']);
+        $this->db->bind('deleted_at', now());
+        
         return $this->db->execute();
     }
 }

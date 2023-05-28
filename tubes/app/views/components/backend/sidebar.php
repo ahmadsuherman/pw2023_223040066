@@ -27,7 +27,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="<?= BASE_URL ?>/destinations" class="nav-link  <?php if($menu == "destinations") echo "active";?>">
+                    <a href="<?= BASE_URL ?>/destination" class="nav-link  <?php if($menu == "destinations") echo "active";?>">
                         <i class="nav-icon fas fa-map-marker"></i>
                         <p>Destinasi</p>
                     </a>

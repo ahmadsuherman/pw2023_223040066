@@ -55,51 +55,53 @@
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="tab-pane active" id="settings">
-                                    <form class="form-horizontal" action="<?= BASE_URL ?>/profile/update" method="post">
+                                    <form data-form="validate" class="form-horizontal" action="<?= BASE_URL ?>/profile/update" method="post">
+                                    <input type="hidden" name="submit">
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="name" class="form-control" id="inputName" placeholder="Nama" value="<?= $data['user']['name'] ?>">
+                                            <div class="col-sm-10">
+                                                <input type="text" name="name" class="form-control" id="inputName" placeholder="Nama" value="<?= $data['user']['name'] ?>" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                             <div class="col-sm-10">
-                                                <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email" value="<?= $data['user']['email']?>">
+                                                <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email" value="<?= $data['user']['email']?>" required data-parsley-checkemail>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
-                                                <input value="Simpan" name="submit" type="submit" class="btn btn-primary">
+                                                <button type="submit" class="btn btn-primary"> <i class="fa fa-save"> </i> Simpan</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
 
                                 <div class="tab-pane" id="password">
-                                    <form class="form-horizontal"  action="<?= BASE_URL ?>/profile/updatePassword" method="post">
+                                    <form class="form-horizontal" data-form="validate" action="<?= BASE_URL ?>/profile/updatePassword" method="post">
+                                        <input type="hidden" name="submit">
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-3 col-form-label">Kata Sandi Saat Ini</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="inputCurentPassword" placeholder="Kata sandi saat ini" value="" name="current_password">
+                                                <input type="password" class="form-control" id="inputCurentPassword" placeholder="Kata sandi saat ini" value="" name="current_password">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-3 col-form-label">Kata Sandi Baru</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="inputNewPassowrd" placeholder="Kata sandi baru" value="" name="password">
+                                                <input type="password" class="form-control" id="inputNewPassowrd" placeholder="Kata sandi baru" value="" name="password">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-3 col-form-label">Konfirmasi Kata Sandi</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="inputConfirmPassword" placeholder="Konfirmasi kata sandi" value="" name="password_confirm">
+                                                <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Konfirmasi kata sandi" value="" name="password_confirm">
                                             </div>
                                         </div>
                                         
                                         <div class="form-group row">
                                             <div class="offset-sm-3 col-sm-9">
-                                                <input name="submit" value="Simpan" type="submit" class="btn btn-primary"></input>
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-save"> </i> Simpan</button>
                                             </div>
                                         </div>
                                     </form>

@@ -22,6 +22,15 @@
     <script type="text/javascript" src="<?= BASE_URL ?>/back-office/plugins/moment/moment.min.js"></script>
     <script type="text/javascript" src="<?= BASE_URL ?>/back-office/plugins/moment/locale/id.js"></script>
     <?php } ?>
+       
+    <?php if (!empty($data['trix'])) { ?>
+    <script type="text/javascript" src="<?= BASE_URL ?>/back-office/plugins/trix/trix.min.js"></script>
+    <script>
+        $(function () {
+            $('input[type=url]').removeAttr('required');
+        })
+    </script>
+    <?php } ?>
 
     <?php if (!empty($data['dataTable'])) { ?>
     <script src="<?= BASE_URL ?>/back-office/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -99,6 +108,149 @@
                 }
             })
         }
+    </script>
+    <?php } ?>
+
+    <?php if (!empty($data['leaflet'])) { ?>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+        integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+        crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <?php } ?>
+
+    <?php if (!empty($data['createLeaflet'])) { ?>
+    <script>
+        var mapCenter = [-2.4833826, 117.8902853];
+        var map = L.map('mapid').setView(mapCenter, 5);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="#">Ahmad Suherman</a> contributors'
+        }).addTo(map);
+
+        var marker = L.marker(mapCenter).addTo(map);
+        function updateMarker(lat, lng) {
+            marker
+            .setLatLng([lat, lng])
+            .bindPopup("Your location :  " + marker.getLatLng().toString())
+            .openPopup();
+            return false;
+        };
+
+        map.on('click', function(e) {
+            let latitude = e.latlng.lat.toString().substring(0, 15);
+            let longitude = e.latlng.lng.toString().substring(0, 15);
+            $('#latitude').val(latitude);
+            $('#longitude').val(longitude);
+            updateMarker(latitude, longitude);
+        });
+
+        var updateMarkerByInputs = function() {
+            return updateMarker( $('#latitude').val() , $('#longitude').val());
+        }
+        $('#latitude').on('input', updateMarkerByInputs);
+        $('#longitude').on('input', updateMarkerByInputs);
+    </script>
+    <?php } ?>
+
+    <?php if (!empty($data['showLeaflet'])) { ?>
+        <script>
+        var map = L.map('mapid').setView([<?= $data['destination']['latitude']; ?>, <?= $data['destination']['longitude']; ?>], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="#">Ahmad Suherman</a> contributors'
+        }).addTo(map);
+
+        L.marker([<?= $data['destination']['latitude']; ?>, <?= $data['destination']['longitude']; ?>]).addTo(map)
+        .bindPopup('<?= $data['destination']['name']?>');
+        
+    </script>
+    <?php } ?>
+    
+    <?php if(!empty($data['editLeaflet'])) { ?>
+    <script>
+        var mapCenter = [<?= $data['destination']['latitude'] ?>, <?= $data['destination']['longitude'] ?>];
+        var map = L.map('mapid').setView(mapCenter, 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="#">Ahmad Suherman</a> contributors'
+        }).addTo(map);
+
+        var marker = L.marker(mapCenter).addTo(map);
+        function updateMarker(lat, lng) {
+            marker
+            .setLatLng([lat, lng])
+            .bindPopup("Your location :  " + marker.getLatLng().toString())
+            .openPopup();
+            return false;
+        };
+
+        map.on('click', function(e) {
+            let latitude = e.latlng.lat.toString().substring(0, 15);
+            let longitude = e.latlng.lng.toString().substring(0, 15);
+            $('#latitude').val(latitude);
+            $('#longitude').val(longitude);
+            updateMarker(latitude, longitude);
+        });
+
+        var updateMarkerByInputs = function() {
+            return updateMarker( $('#latitude').val() , $('#longitude').val());
+        }
+        $('#latitude').on('input', updateMarkerByInputs);
+        $('#longitude').on('input', updateMarkerByInputs);
+
+    </script>
+    <?php } ?>
+    <?php if (!empty($data['parsley'])) { ?>
+    <script src="<?= BASE_URL ?>/back-office/plugins/parsley/parsley.min.js"></script>
+    <script>
+        $(function () {
+            const $form = $('form[data-form="validate"]'),
+            $formGroup = $form.find('.form-group')
+
+            $.extend(window.Parsley.options, {
+                errorClass: 'is-invalid',
+                successClass: 'is-valid',
+                validationThreshold:0,
+                classHandler: function(ParsleyField) {
+                    return ParsleyField.$element.parents('.form-control')
+                },
+                errorsContainer: function(ParsleyField) {
+                    const $formColumn = ParsleyField.$element.parents('.form-group').find('.col-sm-10')
+                    if ($formColumn.length) return $formColumn
+                    return ParsleyField.$element.parents('.form-group')
+                },
+                errorsWrapper: '<div class="invalid-feedback d-none"></div>',
+                errorTemplate: '<div></div>'
+            })
+
+            window.Parsley.addValidator('unequalto', {
+                requirementType: 'string',
+                validateString: function(value, element) {
+                    return value !== $(element).val()
+                },
+                messages: {
+                    en: 'The values cannot be the same.'
+                }
+            })
+
+            window.Parsley.addValidator('mindate', {
+                requirementType: 'string',
+                validateString: function(value, element) {
+                    return moment(value).isAfter($(element).val())
+                },
+                messages: {
+                    en: 'The values cannot be less or the same.'
+                }
+            })
+            console.log($form);
+            $form.parsley()
+            
+            $form.on('submit', function () {
+                console.log("hihi")
+                $(this).find('.btn[type="submit"]').attr('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>')
+            })
+        })
     </script>
     <?php } ?>
 </body>

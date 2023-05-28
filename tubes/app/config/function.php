@@ -33,9 +33,31 @@ function createUid($data = null) {
 
 function dd($value)
 {
-echo "<pre>";
-var_dump($value);
-die;
-echo "</pre>";
+    echo "<pre>";
+    var_dump($value);
+    die;
+    echo "</pre>";
 }
+
+function uploadImage($file, $dir)
+{
+
+    if(!empty($file)) {
+        // Rename file foto. Contoh: foto-AG007.jpg
+        $extFile = pathinfo($file, PATHINFO_EXTENSION);
+        $fileRename = date('mdY_his') .'.'. $extFile;
+
+        $dirImages = $dir;
+        $pathImage = $dirImages . $fileRename;
+     
+        $file = $fileRename; // untuk keperluan Query INSERT
+
+        move_uploaded_file($_FILES['image']['tmp_name'], $pathImage);
+    } else {
+        $file = 'img/default.png';
+    }
+
+    return $file;
+}
+
 ?>

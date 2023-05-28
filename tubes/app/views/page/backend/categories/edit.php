@@ -21,12 +21,13 @@
                         <div class="card-header">
                             <h3 class="card-title">Ubah Kategori</h3>
                         </div>
-                        <form class="form-horizontal" action="<?= BASE_URL ?>/category/update/<?= $data['category']['uid'] ?>" method="post">
+                        <form data-form="validate" class="form-horizontal" action="<?= BASE_URL ?>/category/update/<?= $data['category']['uid'] ?>" method="post">
+                            <input type="hidden" name="submit">
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="iName" class="col-form-label col-sm-3 text-lg-right text-left">Nama</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="iName" placeholder="Nama" value="<?= $data['category']['name']; ?>" name="name">
+                                        <input type="text" class="form-control" id="iName" placeholder="Nama" required value="<?= $data['category']['name']; ?>" name="name">
                                     </div>
                                 </div>
                             </div>

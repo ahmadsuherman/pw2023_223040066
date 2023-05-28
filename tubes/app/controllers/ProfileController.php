@@ -14,8 +14,9 @@ class ProfileController extends Controller
     {
         $uid = $_SESSION['user']['uid'];
 
-        $data['title'] = 'Profil';
-        $data['user'] = $this->model('User')->findByUid(uid: $uid);
+        $data['title']   = 'Profil';
+        $data['parsley'] = true;
+        $data['user']    = $this->model('User')->findByUid(uid: $uid);
         
         $this->view('components/backend/header', $data);
         $this->view('components/backend/navbar', $data);

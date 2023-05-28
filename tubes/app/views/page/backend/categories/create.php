@@ -21,12 +21,13 @@
                         <div class="card-header">
                             <h3 class="card-title">Tambah Kategori</h3>
                         </div>
-                        <form class="form-horizontal" action="<?= BASE_URL ?>/category/store" method="post">
+                        <form class="form-horizontal" data-form="validate" action="<?= BASE_URL ?>/category/store" method="post">
+                            <input type="hidden" name="submit">
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="iName" class="col-form-label col-sm-3 text-lg-right text-left">Nama</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="iName" placeholder="Nama" name="name">
+                                        <input type="text" class="form-control" id="iName" placeholder="Nama" name="name" required>
                                     </div>
                                 </div>
                             </div>
@@ -34,7 +35,7 @@
                             <div class="card-footer">
                             <div class="row">
                                 <div class="col-sm-9 offset-sm-3">
-                                    <button name="submit" type="submit" class="btn btn-info mr-2"><i class="fa fa-save mr-1"></i> Simpan</button>
+                                    <button type="submit" class="btn btn-info mr-2"><i class="fa fa-save mr-1"></i> Simpan</button>
                                     <a href="<?= BASE_URL ?>/category" class="btn btn-default">Batal</a>
                                 </div>
                             </div>
