@@ -72,43 +72,6 @@ class User
         return $this->db->single();
     }
 
-    public function updatePengguna(int $id, string $namaLengkap, string $username, string $password, string $telp)
-    {
-        if (is_null($password)) {
-            $this->db->query("UPDATE $this->table SET nama_lengkap=:nama_lengkap, username=:username, telp=:telp WHERE id_user=:id");
-            $this->db->bind('id', $id);
-            $this->db->bind('nama_lengkap', $namaLengkap);
-            $this->db->bind('username', $username);
-            $this->db->bind('telp', $telp);
-        } else {
-            $this->db->query("UPDATE $this->table SET nama_lengkap=:nama_lengkap, username=:username, password=:password, telp=:telp WHERE id_user=:id");
-            $this->db->bind('id', $id);
-            $this->db->bind('nama_lengkap', $namaLengkap);
-            $this->db->bind('username', $username);
-            $this->db->bind('password', $password);
-            $this->db->bind('telp', $telp);
-        }
-
-        return $this->db->execute();
-    }
-
-    public function deletePengguna(int $id)
-    {
-        $this->db->query("DELETE FROM $this->tableUser WHERE id_user=:id");
-        $this->db->bind('id', $id);
-
-        return $this->db->execute();
-    }
-
-    public function getMapPopupContentAttribute()
-    {
-        $mapPopupContent = '';
-        $mapPopupContent .= '<div class="my-2"><strong>'.__('outlet.name').':</strong><br>'.$this->name_link.'</div>';
-        $mapPopupContent .= '<div class="my-2"><strong>'.__('outlet.coordinate').':</strong><br>'.$this->coordinate.'</div>';
-
-        return $mapPopupContent;
-    }
-
     public function update(string $uid, string $name, string $email)
     {
         $this->db->query("UPDATE $this->table SET name=:name, email=:email WHERE uid=:uid");
@@ -126,6 +89,17 @@ class User
         $this->db->bind('password', $password);
 
         return $this->db->execute();
+    }
+
+    public function getNewUserDashboard()
+    {
+        $this->db->query("SELECT 
+            DATE_FORMAT(created_at,'%Y-%m-%d') AS created_at,
+            COUNT(*) AS total_user  
+        FROM $this->table
+        GROUP BY DATE_FORMAT(created_at, '%Y-%m-%d')");
+
+        return $this->db->resultSet();
     }
       
 }

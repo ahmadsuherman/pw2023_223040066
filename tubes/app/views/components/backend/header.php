@@ -64,6 +64,9 @@
       #mapid { height: 300px; }
     </style>
     <?php } ?>
+    <?php if(!empty($data['chart'])) { ?>
+      <link rel="stylesheet" href="<?= BASE_URL ?>/back-office/plugins/chart.js/Chart.min.css">
+    <?php } ?>
 </head>
 <body class="sidebar-mini layout-fixed layout-navbar-fixed pace-success">
 <div class="wrapper">

@@ -38,7 +38,7 @@ class DestinationController extends Controller
     {
         // dd($_SESSION['user']);
         $data['title'] = 'Tambah Destinasi';
-        $data['categories'] = $this->model('Category')->getCategories();
+        $data['categories'] = $this->model('Category')->getCategorySelect();
         $data['leaflet'] = true;
         $data['createLeaflet'] = true;
         $data['trix'] = true;
@@ -114,7 +114,7 @@ class DestinationController extends Controller
     {
         $data['title'] = 'Ubah Destinasi';
         $data['destination'] = $this->model('Destination')->findByUid(uid: $uid);
-        $data['categories'] = $this->model('Category')->getCategories();
+        $data['categories'] = $this->model('Category')->getCategorySelect();
         $data['leaflet'] = true;
         $data['editLeaflet'] = true;
         $data['trix'] = true;

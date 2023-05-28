@@ -63,7 +63,7 @@
                                                 <a href="<?= BASE_URL .'/category/edit/'. $category['uid']?>" class="btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-fw fa-edit"></i></a>
                                                 
                                                 <?php if($category['is_active']){ ?>
-                                                    <button href="javascript:;" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Non Aktifkan"><i class="fas fa-fw fa-toggle-on" onclick="updateStatus('<?= $category['uid'] ?>' , '<?=  $category['name'] ?>')"></i></button>
+                                                    <button href="javascript:;" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Non Aktifkan"><i class="fas fa-fw fa-toggle-on" onclick="updateStatus('<?= $category['uid'] ?>' , '<?=  $category['name'] ?>')"></i></button>
                                                 <?php } else{ ?> 
                                                     <button href="javascript:;" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Aktifkan"><i class="fas fa-fw fa-toggle-off" onclick="updateStatus('<?= $category['uid'] ?>' , '<?=  $category['name'] ?>')"></i></button>
                                                 <?php }

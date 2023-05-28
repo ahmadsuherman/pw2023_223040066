@@ -125,4 +125,17 @@ class Destination
         
         return $this->db->execute();
     }
+
+    public function getDestinationGroupByCategoryDashboard()
+    {
+        $this->db->query("SELECT 
+            categories.name AS category_name,
+            COUNT(*) AS total_destination  
+        FROM $this->table
+        LEFT JOIN categories ON destinations.category_id = categories.id 
+        WHERE destinations.deleted_at <=> null
+        GROUP BY categories.name");
+
+        return $this->db->resultSet();
+    }
 }

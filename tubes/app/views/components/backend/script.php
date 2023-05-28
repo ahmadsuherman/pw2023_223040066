@@ -253,5 +253,91 @@
         })
     </script>
     <?php } ?>
+
+    <?php if(!empty($data['chart'])) { ?>
+
+    <script src="<?= BASE_URL ?>/back-office/plugins/chart.js/Chart.min.js"></script>
+    <script>
+        // Menginisialisasi grafik menggunakan Chart.js
+        var ctx = document.getElementById('newUserDashboard').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: <?php echo json_encode($data['labelNewUser']); ?>,
+                datasets: [{
+                    label: 'Jumlah Pengguna',
+                    data: <?php echo json_encode($data['countNewUser']); ?>,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                    fill: true
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        min: 0,
+                        ticks: {
+                            beginAtZero: true,
+                            // stepSize: 1,
+                        }
+                    }]
+                },
+            }
+        });
+
+        var ctx = document.getElementById('destinationGroupByCategoryDashboard').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($data['labelDestination']); ?>,
+                datasets: [{
+                    label: 'Jumlah Destinasi',
+                    data: <?php echo json_encode($data['countDestination']); ?>,
+                    borderColor: 'blue',
+                    backgroundColor: '#2196F3',
+                    fill: true
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                    display: false
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        min: 0,
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1,
+                        }
+                    }]
+                },
+            }
+        });
+
+        var ctx = document.getElementById('categoryGroupByIsActive').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: <?php echo json_encode($data['labelCategory']); ?>,
+                datasets: [{
+                    data: <?php echo json_encode($data['countCategory']); ?>,
+                    borderColor: ['green', 'red'],
+                    backgroundColor: ['#4CAF50', '#E57373'],
+                    fill: true
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        precision: 0
+                    }
+                }
+            }
+        });
+    </script>
+    <?php } ?>
 </body>
 </html>

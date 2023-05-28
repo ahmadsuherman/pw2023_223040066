@@ -33,13 +33,13 @@
                     </a>
                 </li>
 
-                <li class="nav-header">Data</li>
+                <!-- <li class="nav-header">Data</li>
                 <li class="nav-item">
                     <a href="<?= BASE_URL ?>/user" class="nav-link  <?php if($menu == "users") echo "active";?>">
                         <i class="nav-icon fas fa-user"></i>
                         <p>Pengguna</p>
                     </a>
-                </li>
+                </li> -->
                 <?php endif; ?>
             </ul>
         </nav>

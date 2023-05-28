@@ -17,6 +17,15 @@ class Category
         return $this->db->resultSet();
     }
 
+    public function getCategorySelect()
+    {
+        $this->db->query("SELECT * FROM $this->table 
+            WHERE is_active <=> 1
+            ORDER BY created_at DESC");
+
+        return $this->db->resultSet();
+    }
+
     public function add(string $name)
     {
         $this->db->query("INSERT INTO $this->table(
@@ -70,5 +79,17 @@ class Category
         $this->db->bind('is_active', $status);
 
         return $this->db->execute();
+    }
+
+    public function getCategoryGroupByIsActive()
+    {
+        $this->db->query("SELECT 
+            is_active,
+            COUNT(*) AS total_category  
+        FROM $this->table
+        GROUP BY is_active
+        ORDER BY is_active DESC");
+
+        return $this->db->resultSet();
     }
 }
