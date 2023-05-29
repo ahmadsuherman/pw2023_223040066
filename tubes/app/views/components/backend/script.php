@@ -154,7 +154,7 @@
     <?php } ?>
 
     <?php if (!empty($data['showLeaflet'])) { ?>
-        <script>
+    <script>
         var map = L.map('mapid').setView([<?= $data['destination']['latitude']; ?>, <?= $data['destination']['longitude']; ?>], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

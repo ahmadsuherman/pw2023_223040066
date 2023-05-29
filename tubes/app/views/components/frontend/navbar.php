@@ -1,3 +1,4 @@
+
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-primary navbar-dark">
     <div class="container">
@@ -13,11 +14,11 @@
       <div class="collapse navbar-collapse order-3" id="navbarCollapse">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item <?= ($_SERVER["REQUEST_URI"] === BASE_URL .'/' || $_SERVER["REQUEST_URI"] === BASE_URL.'/home') ? 'active' : ''; ?>">
               <a href="<?= BASE_URL ?>/" class="nav-link">Home</a>
             </li>
-            <li class="nav-item">
-              <a href="<?= BASE_URL ?>/destination" class="nav-link">Destinasi</a>
+            <li class="nav-item <?= ($_SERVER["REQUEST_URI"] === BASE_URL.'/destinations') ? 'active' : ''; ?>">
+              <a href="<?= BASE_URL ?>/destinations" class="nav-link">Destinasi</a>
             </li>
         </ul>
 

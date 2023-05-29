@@ -24,6 +24,25 @@ class Destination
         return $this->db->resultSet();
     }
 
+    public function getTotalItem() {
+        $this->db->query("SELECT COUNT(*) AS total FROM $this->table 
+            WHERE destinations.deleted_at <=> null");
+        
+        $rowCount = $this->db->resultSet();
+        $totalItem = $rowCount[0]['total'];
+        return $totalItem;
+    }
+
+    public function getDataDestinations($initialLimit, $totalItem) {
+        $this->db->query("SELECT destinations.*, categories.name AS category_name FROM $this->table 
+            LEFT JOIN categories ON destinations.category_id = categories.id 
+            WHERE destinations.deleted_at <=> null
+            LIMIT $initialLimit, $totalItem
+        ");
+
+        return $this->db->resultSet();
+    }
+
     public function getNewDestinations()
     {
         $this->db->query("SELECT * FROM $this->table 

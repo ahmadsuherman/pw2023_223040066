@@ -4,9 +4,24 @@ class App
 {
     public function __construct(protected $controller = 'Home', protected $method = 'index', protected $params = [])
     {
+        // $url = 'http://localhost:8888/pw2023_223040066/tubes/destinations?page=1';
+
+        
+        // dd(parse_url($url));
+        // var_dump(parse_url($url, PHP_URL_SCHEME));
+        // var_dump(parse_url($url, PHP_URL_USER));
+        // var_dump(parse_url($url, PHP_URL_PASS));
+        // var_dump(parse_url($url, PHP_URL_HOST));
+        // var_dump(parse_url($url, PHP_URL_PORT));
+        // var_dump(parse_url($url, PHP_URL_PATH));
+        // var_dump(parse_url($url, PHP_URL_QUERY));
+        // var_dump(parse_url($url, PHP_URL_FRAGMENT));
+        // die();
+
+        
         session_start();
         $url = $this->parseURL();
-        
+    
         if(isset($url[0])) $firstUrl    =  $url[0];
         if(isset($url[1])) $secondUrl   = $url[1];
         if(isset($url[2])) $thirdUrl    = $url[2];
@@ -21,7 +36,7 @@ class App
                 die();
             }
         }
-        
+        // dd($url);
         $controllerName = ucfirst($this->controller) . 'Controller';
         
         require_once '../app/controllers/' . $controllerName . '.php';
@@ -34,7 +49,7 @@ class App
                 unset($url[1]);
             }
         }
-
+      
         if (!empty($url)) {
             $this->params = array_values($url);
         }

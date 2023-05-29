@@ -91,11 +91,10 @@ class DestinationController extends Controller
     public function show(string $uid)
     {
         
-        $data['title'] = 'Daftar Destinasi';
+        $data['title'] = 'Detail Destinasi';
         $data['updateStatus'] = 'destination/updateStatus';
         
         $data['destination'] = $this->model('Destination')->findByUid(uid: $uid);
-        // dd($data['destination']);
         $data['leaflet'] = true;
         
         $data['showLeaflet'] = true;

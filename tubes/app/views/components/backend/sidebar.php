@@ -10,8 +10,8 @@
     <div class="sidebar" style="margin-top: 0px">
         <nav class="">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a href="<?= BASE_URL ?>/dashboard" class="nav-link <?php if($menu == "dashboard") echo "active";?>">
+                <li class="nav-item active">
+                    <a href="<?= BASE_URL ?>/dashboard" class="nav-link <?= ($_SERVER["REQUEST_URI"] === BASE_URL.'/dashboard') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
@@ -20,14 +20,14 @@
                 <?php if ($_SESSION['user']['level'] == 'Admin'): ?>
                 <li class="nav-header">Fitur</li>
                 <li class="nav-item">
-                    <a href="<?= BASE_URL ?>/category" class="nav-link  <?php if($menu == "categories") echo "active";?>">
+                    <a href="<?= BASE_URL ?>/category" class="nav-link <?= ($_SERVER["REQUEST_URI"] === BASE_URL.'/category') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-tags"></i>
                         <p>Kategori</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="<?= BASE_URL ?>/destination" class="nav-link  <?php if($menu == "destinations") echo "active";?>">
+                    <a href="<?= BASE_URL ?>/destination" class="nav-link <?= ($_SERVER["REQUEST_URI"] === BASE_URL.'/destination') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-map-marker"></i>
                         <p>Destinasi</p>
                     </a>
