@@ -12,10 +12,10 @@ class SearchController extends Controller
         $keyword                = str_replace("+"," ",$getQueryStringSearch);
        
         $data['title'] = 'Cari Destinasi';
+        $data['parsley'] = true;
         
         $data['destinations'] = $this->model('Destination')->getSearchDestinations(keyword: $keyword);
                 
-        // $this->dd($data['newDestinations']);
         $this->view('components/frontend/header', $data);
         $this->view('components/frontend/navbar', $data);
         

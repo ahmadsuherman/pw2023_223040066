@@ -14,6 +14,8 @@
     <link rel="shortcut icon" href="<?= BASE_URL ?>/logo-2.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="<?= BASE_URL ?>/back-office/plugins/fontawesome-free/css/all.min.css">
+    <!-- pace-progress -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/back-office/plugins/pace-progress/themes/black/pace-theme-flat-top.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/back-office/css/adminlte.min.css">
 
     <?php if(!empty($data['leaflet'])) { ?>
@@ -34,5 +36,5 @@
     </style>
     <?php } ?>
 </head>
-<body class="hold-transition layout-top-nav">
+<body class="hold-transition layout-top-nav pace-success">
 <div class="wrapper">

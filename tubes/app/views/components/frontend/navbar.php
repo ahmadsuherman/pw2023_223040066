@@ -28,9 +28,9 @@
               <i class="fas fa-search"></i>
               </a>
                 <div class="navbar-search-block" id="navbar-search3">
-                <form action="<?= BASE_URL ?>/search" class="form-inline" action="" method="get">
+                <form autocomplete="off" data-form="validate" action="<?= BASE_URL ?>/search" class="form-inline" action="" method="get">
                   <div class="input-group input-group-sm">
-                  <input class="form-control form-control-navbar" type="search" placeholder="Cari Destinasi" aria-label="Search" name="s">
+                  <input required class="form-control form-control-navbar" type="search" placeholder="Cari Destinasi" aria-label="Search" name="s">
                     <div class="input-group-append">
                       <button class="btn btn-navbar" type="submit">
                       <i class="fas fa-search"></i>
