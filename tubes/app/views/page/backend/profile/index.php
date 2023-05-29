@@ -83,19 +83,19 @@
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-3 col-form-label">Kata Sandi Saat Ini</label>
                                             <div class="col-sm-9">
-                                                <input type="password" class="form-control" id="inputCurentPassword" placeholder="Kata sandi saat ini" value="" name="current_password">
+                                                <input type="password" class="form-control" id="inputCurentPassword" placeholder="Kata sandi saat ini" value="" name="current_password" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-3 col-form-label">Kata Sandi Baru</label>
                                             <div class="col-sm-9">
-                                                <input type="password" class="form-control" id="inputNewPassowrd" placeholder="Kata sandi baru" value="" name="password">
+                                                <input type="password" class="form-control" id="inputNewPassowrd" placeholder="Kata sandi baru" value="" name="password" required data-parsley-minlength="8">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-3 col-form-label">Konfirmasi Kata Sandi</label>
                                             <div class="col-sm-9">
-                                                <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Konfirmasi kata sandi" value="" name="password_confirm">
+                                                <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Konfirmasi kata sandi" value="" name="password_confirm" required required data-parsley-equalto="#inputNewPassowrd">
                                             </div>
                                         </div>
                                         

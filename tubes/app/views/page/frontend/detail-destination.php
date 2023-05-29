@@ -24,19 +24,19 @@
             <div class="col-md-12 mt-2">
                 <h4>Bagikan</h4>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-2">
                 <button type="button" class="btn btn-success btn-block" onclick="shareTo('whatsapp')"><i class="fab fa-whatsapp"></i> Whatsapp</button>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-2">
                 <button type="button" class="btn btn-primary btn-block" onclick="shareTo('telegram')"><i class="fab fa-telegram"></i> Telegram</button>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <button type="button" class="btn btn-info btn-block" onclick="shareTo('twitter')"><i class="fab fa-twitter"></i> Twitter</button>
             </div>
             <!-- <div class="col-md-3">
                 <button type="button" class="btn btn-primary btn-block" onclick="shareTo('facebook')"><i class="fab fa-facebook"></i> Facebook</button>
             </div> -->
-            <div class="col-md-12 mt-4">
+            <div class="col-md-12">
                 <div class="card-body" id="mapid"></div>
             </div>
         </div>

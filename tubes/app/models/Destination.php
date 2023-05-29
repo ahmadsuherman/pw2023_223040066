@@ -53,6 +53,17 @@ class Destination
         return $this->db->resultSet();
     }
 
+    public function getSearchDestinations(string $keyword)
+    {
+        $this->db->query("SELECT destinations.*, categories.name AS category_name FROM $this->table 
+            LEFT JOIN categories ON destinations.category_id = categories.id 
+            WHERE destinations.deleted_at <=> null
+            AND destinations.name LIKE '%{$keyword}%';
+        ");
+
+        return $this->db->resultSet();
+    }
+
     public function findByUid(string $uid)
     {
         $this->db->query("SELECT destinations.*, categories.name AS category_name FROM $this->table LEFT JOIN categories ON destinations.category_id = categories.id WHERE destinations.uid=:uid");

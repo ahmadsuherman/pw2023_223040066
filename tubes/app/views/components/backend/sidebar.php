@@ -18,16 +18,18 @@
                 </li>
 
                 <?php if ($_SESSION['user']['level'] == 'Admin'): ?>
+                
+                
                 <li class="nav-header">Fitur</li>
                 <li class="nav-item">
-                    <a href="<?= BASE_URL ?>/category" class="nav-link <?= ($_SERVER["REQUEST_URI"] === BASE_URL.'/category') ? 'active' : ''; ?>">
+                    <a aria-current="page" href="<?= BASE_URL ?>/category" class="nav-link <?= ($_SERVER["REQUEST_URI"] === BASE_URL.'/category') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-tags"></i>
                         <p>Kategori</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="<?= BASE_URL ?>/destination" class="nav-link <?= ($_SERVER["REQUEST_URI"] === BASE_URL.'/destination') ? 'active' : ''; ?>">
+                    <a aria-current="page" href="<?= BASE_URL ?>/destination" class="nav-link <?= ($_SERVER["REQUEST_URI"] === BASE_URL.'/destination') ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-map-marker"></i>
                         <p>Destinasi</p>
                     </a>

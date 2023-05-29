@@ -39,13 +39,19 @@
             }
 
             $coordinatesGroup = rtrim($coordinatesGroup, ',');
-
-            $category = $group['category_name'];
-            $name = $group['name'];
+            $baseURL = BASE_URL;
+            $category       = $group['category_name'];
+            $name           = $group['name'];
+            $categoryUid    = $group['uid'];
+            $image          = $group['image'];
+            $displayImage   = "<img class='img-fluid img-rounded' src='$baseURL/uploads/img/destination/$image'>";
             
             $markers .= "var coordinatesGroup = [$coordinatesGroup];
                         var category = '$category';
-                        var content = '<strong>Nama: </strong>$name <br> <strong>Kategori: </strong>$category <br> ';
+                        var content = `<strong>Nama: </strong><a href=destinations/show/$categoryUid>$name</a> <br> 
+                        <strong>Kategori: </strong>$category <br>
+                        $displayImage
+                        `;
                         
                         var markerOptions = { 
                           title: name,
