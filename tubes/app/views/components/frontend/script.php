@@ -157,7 +157,6 @@
         $form.parsley()
         
         $form.on('submit', function () {
-            console.log("hihi")
             $(this).find('.btn[type="submit"]').attr('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>')
         })
     })

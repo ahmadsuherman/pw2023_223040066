@@ -35,7 +35,10 @@ class RegisterController extends Controller
                         $data['success'] = true;
                         $data['message'] = $name . ' berhasil terdaftar. silahkan login di <a href='.BASE_URL.'/login>disini</a>';
 
-                        // header("location:" . BASE_URL . "/login", $data);
+                        $user = $this->model('User')->cekUser(email: $email);
+                        $_SESSION['user'] = $user;
+
+                        header("location:" . BASE_URL . "/login");
                     } else {
                         $data['error'] = true;
                         $data['message'] = "Email sudah terdaftar";
@@ -47,7 +50,7 @@ class RegisterController extends Controller
                 $data['message'] = "Konfirmasi kata sandi tidak sama!";
             }
         }
-
+        
         $this->view('page/auth/register', $data);
     }
 }

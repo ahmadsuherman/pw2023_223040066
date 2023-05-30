@@ -27,11 +27,11 @@
           </p>
 
           <p>Kamu bisa mengunjungi media sosial kami di:</p>
-
-          <ul>
-            <li>Instagram: <a href=""><?= AUTHOR ?></a></li>
-            <li>Whatsapp: <a href=""><?= AUTHOR ?></a>  </li>
-            <li>Facebook:  <a href=""><?= AUTHOR ?></a> </li>
+  
+          <ul class="text-left">
+            <li>Instagram: <a target="_black" href="https://www.instagram.com/<?= AUTHOR_IG ?>"><?= AUTHOR_IG ?></a></li>
+            <li>Whatsapp: <a target="_black" href="https://api.whatsapp.com/send?phone=62<?= AUTHOR_WA ?>&text=Hi%20Ahmad%2C%20I%20want%20to%20contact%20you"><?= AUTHOR_WA ?></a>  </li>
+            <li>Gmail: <a target="_black" href="mailto:<?= AUTHOR_EMAIL ?>"><?= AUTHOR_EMAIL ?></a> </li>
             
           </ul>
 

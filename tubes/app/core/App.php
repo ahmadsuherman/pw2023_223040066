@@ -17,7 +17,7 @@ class App
                 unset($url[0]);
             } else {
                 http_response_code(404);
-                require_once '../app/views/page/errors/maintenance.php';
+                require_once '../app/views/page/errors/404.php';
                 die();
             }
         }
