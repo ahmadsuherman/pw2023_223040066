@@ -12,6 +12,7 @@ class DestinationsController extends Controller
         $queryStringPagination = str_replace("page=","",$parseUrlQuery);
 
         $data['title'] = 'Home';
+        $data['parsley'] = true;
 
         $totalItem = $this->model('Destination')->getTotalItem();
         $totalItemByPage = 10;
@@ -42,7 +43,7 @@ class DestinationsController extends Controller
         $data['updateStatus'] = 'destination/updateStatus';
         
         $data['destination'] = $this->model('Destination')->findByUid(uid: $uid);
-        
+        $data['parsley'] = true;
         $data['leaflet'] = true;
         $data['showLeaflet'] = true;
         $data['shareButton'] = true;

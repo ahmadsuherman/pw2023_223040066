@@ -11,21 +11,22 @@
         <div class="row mt-3">
             <div class="col-md-10 offset-md-1">
                 <div class="list-group">
+                    
                     <?php if(count($data['destinations']) > 0): ?>
                     <?php foreach($data['destinations'] as $destination): ?>
                     <div class="list-group-item">
                         <div class="row">
                             <div class="col-auto">
-                                <img width="240" height="160" src="<?= BASE_URL ?>/uploads/img/destination/<?= $destination['image'] ?>" class="border-0">
+                                <img width="240" height="160" src="<?= BASE_URL ?>/uploads/img/destination/<?= $destination['image'] ?>" class="img-rounded border-0">
                             </div>
                             <div class="col px-4">
                                 <div>
                                     <div class="float-right"><?= getUpdatedAtFormatDestination($destination['updated_at']); ?></div>
                                     <a href="<?= BASE_URL ?>/destinations/show/<?= $destination['uid'] ?>"><h3><?= $destination['name'] ?></h3></a>   
                                     <p><i class="fa fa-tags fa-sm"></i> <?= $destination['category_name']; ?></p>
-                                    <p class="mb-0 text-truncate" style="max-height: 5px;">
-                                    <?= htmlspecialchars_decode(stripslashes($destination['description'])) ?>
-                                    </p>
+                                    <span>
+                                    <?= substr(strip_tags(htmlspecialchars_decode(stripslashes($destination['description']))),0,200) . "..." ?>
+                                    </span>
                                 </div>
                             </div>
                         </div>

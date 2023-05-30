@@ -10,6 +10,7 @@ class HomeController extends Controller
         $data['destinations'] = $this->model('Destination')->getDestinations();
         $data['leaflet'] = true;
         $data['indexLeaflet'] = true;
+        $data['parsley'] = true;
         
         // $this->dd($data['newDestinations']);
         $this->view('components/frontend/header', $data);

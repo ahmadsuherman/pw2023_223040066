@@ -153,7 +153,7 @@
                 en: 'The values cannot be less or the same.'
             }
         })
-        console.log($form);
+        
         $form.parsley()
         
         $form.on('submit', function () {
@@ -163,5 +163,10 @@
     })
 </script>
 <?php } ?>
+<script>
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 </body>
 </html>

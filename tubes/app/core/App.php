@@ -4,24 +4,9 @@ class App
 {
     public function __construct(protected $controller = 'Home', protected $method = 'index', protected $params = [])
     {
-        // $url = 'http://localhost:8888/pw2023_223040066/tubes/destinations?page=1';
-
-        
-        // dd(parse_url($url));
-        // var_dump(parse_url($url, PHP_URL_SCHEME));
-        // var_dump(parse_url($url, PHP_URL_USER));
-        // var_dump(parse_url($url, PHP_URL_PASS));
-        // var_dump(parse_url($url, PHP_URL_HOST));
-        // var_dump(parse_url($url, PHP_URL_PORT));
-        // var_dump(parse_url($url, PHP_URL_PATH));
-        // var_dump(parse_url($url, PHP_URL_QUERY));
-        // var_dump(parse_url($url, PHP_URL_FRAGMENT));
-        // die();
-
-        
         session_start();
         $url = $this->parseURL();
-    
+        
         if(isset($url[0])) $firstUrl    =  $url[0];
         if(isset($url[1])) $secondUrl   = $url[1];
         if(isset($url[2])) $thirdUrl    = $url[2];
@@ -32,7 +17,7 @@ class App
                 unset($url[0]);
             } else {
                 http_response_code(404);
-                require_once '../app/views/page/errors/404.php';
+                require_once '../app/views/page/errors/maintenance.php';
                 die();
             }
         }
