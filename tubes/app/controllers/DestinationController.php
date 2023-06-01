@@ -57,7 +57,7 @@ class DestinationController extends Controller
     {
         // dd($_POST);
         if (isset($_POST['submit'])) {
-            
+            dd($_FILES);
             $imageName 	    = $_FILES['image']['name'];
 
             $imageName = uploadImage($imageName, 'uploads/img/destination/');

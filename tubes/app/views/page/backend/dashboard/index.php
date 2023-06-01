@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                <span class="h4">Dashboard</span>
+                <span class="h4 placeholder">Dashboard</span>
                 </div>
             </div>
         </div>

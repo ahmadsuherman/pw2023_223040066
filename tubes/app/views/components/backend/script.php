@@ -1,12 +1,9 @@
 </div>
-    <!-- jQuery -->
     <script src="<?= BASE_URL ?>/back-office/plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
     <script src="<?= BASE_URL ?>/back-office/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="<?= BASE_URL ?>/back-office/plugins/pace-progress/pace.min.js"></script>
 
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script src="<?= BASE_URL ?>/back-office/js/adminlte.min.js"></script>
+    <script src="<?= BASE_URL ?>/back-office/js/boostrap.min.js"></script>
     <script src="<?= BASE_URL ?>/back-office/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?= BASE_URL ?>/back-office/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     
@@ -29,6 +26,29 @@
         $(function () {
             $('input[type=url]').removeAttr('required');
         })
+
+        function uploadData(event) {
+            event.preventDefault();
+
+            var form = event.target;
+            var formData = new FormData(form);
+
+            // Get the content from the Trix editor
+            var content = document.querySelector('trix-editor').value;
+            formData.append('content', content);
+
+            var request = new XMLHttpRequest();
+            request.open("POST", form.action, true);
+
+            request.onreadystatechange = function() {
+                if (request.readyState === 4 && request.status === 200) {
+                console.log(request.responseText);
+                }
+            };
+
+            request.send(formData);
+        }
+
     </script>
     <?php } ?>
 
@@ -48,8 +68,11 @@
     
     <script>
         $(function () {
-            $(".dataTable").DataTable({
-                "responsive": true, "lengthChange": true, "autoWidth": false,
+
+            var table = $(".dataTable").DataTable({
+                "responsive": true, 
+                "lengthChange": true, 
+                "autoWidth": false,
                 language: {
                     buttons: {
                         copyTitle: 'Menyalin ke papan klip',
@@ -77,9 +100,38 @@
                     </div>`,
                     search: `Cari`
                 },
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                buttons: [
+                    { 
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf"></i> Cetak PDF',
+                        className: 'btn btn-danger', 
+                        exportOptions: {
+                            columns: ':visible:not(.not-export-col)',
+                            modifier: {
+                                page: 'current'
+                            }
+                        },
+                        customize: function(doc) {
+                            var table = doc.content[1].table;
+                            var firstColumnWidth = 5;
+
+                            var header = doc.content[1].table.body[0];
+
+                            for (var i = 0; i < header.length; i++) {
+                            header[i].alignment = 'left';
+                            }
+
+                            table.widths = Array(table.body[0].length).fill('*');
+                            table.widths[0] = firstColumnWidth + '%';
+                        }
+                    }
+                ],
+                // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             }).buttons().container().appendTo("#example1_wrapper .col-md-6:eq(0)");
+    
         });
+
+        
 
         function updateStatus(id, name) {
             Swal.mixin({
@@ -125,7 +177,7 @@
         var map = L.map('mapid').setView(mapCenter, 5);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="#">Ahmad Suherman</a> contributors'
+            attribution: '&copy; <a href="https://github.com/ahmadsuherman"><?= AUTHOR ?></a> contributors'
         }).addTo(map);
 
         var marker = L.marker(mapCenter).addTo(map);
@@ -158,7 +210,7 @@
         var map = L.map('mapid').setView([<?= $data['destination']['latitude']; ?>, <?= $data['destination']['longitude']; ?>], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="#">Ahmad Suherman</a> contributors'
+            attribution: '&copy; <a href="https://github.com/ahmadsuherman"><?= AUTHOR ?></a> contributors'
         }).addTo(map);
 
         L.marker([<?= $data['destination']['latitude']; ?>, <?= $data['destination']['longitude']; ?>]).addTo(map)
@@ -173,7 +225,7 @@
         var map = L.map('mapid').setView(mapCenter, 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="#">Ahmad Suherman</a> contributors'
+            attribution: '&copy; <a href="https://github.com/ahmadsuherman"><?= AUTHOR ?></a> contributors'
         }).addTo(map);
 
         var marker = L.marker(mapCenter).addTo(map);
@@ -258,7 +310,6 @@
 
     <script src="<?= BASE_URL ?>/back-office/plugins/chart.js/Chart.min.js"></script>
     <script>
-        // Menginisialisasi grafik menggunakan Chart.js
         var ctx = document.getElementById('newUserDashboard').getContext('2d');
         var chart = new Chart(ctx, {
             type: 'line',

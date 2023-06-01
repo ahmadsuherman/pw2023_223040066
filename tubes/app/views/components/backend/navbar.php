@@ -16,7 +16,6 @@
                 </span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
-                <!-- User image -->
                 <li class="user-header bg-primary">
                     <img src="<?= BASE_URL ?>/img/default-profile.png" class="img-circle elevation-2 prof_image" alt="Gambar <?= $_SESSION['user']['name']; ?>">
                     <p>
@@ -24,7 +23,6 @@
                         <small style="color:white"><?php if(isset($_SESSION['user'])) : echo $_SESSION['user']['email']; endif; ?></small>
                     </p>
                 </li>
-                <!-- Menu Footer-->
                 <li class="user-footer">
                     <a  href="<?= BASE_URL ?>/profile" class="btn btn-default btn-flat">Profile</a>
                     <a href="<?= BASE_URL ?>/logout" class="btn btn-default btn-flat float-right">Keluar</a>

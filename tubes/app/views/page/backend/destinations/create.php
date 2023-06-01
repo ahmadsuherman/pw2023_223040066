@@ -21,7 +21,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Tambah Destinasi</h3>
                         </div>
-                        <form action="<?= BASE_URL ?>/destination/store" method="post" class="form-horizontal" data-form="validate" enctype="multipart/form-data">
+                        <form action="<?= BASE_URL ?>/destination/store" method="post" class="form-horizontal" data-form="validate" enctype="multipart/form-data" onsubmit="uploadData(event)">
                             <input type="hidden" name="submit">
                             <div class="card-body">
                                 <div class="form-group row">
@@ -49,10 +49,12 @@
                                 </div>
                                 <div class="form-group row">
                                     <label for="iDescription" class="col-form-label col-sm-3 text-lg-right text-left">Deskripsi</label>
-                                    <input id="iDescription" name="description" style="opacity: 0; width: 0; float: left;">
+                                    <input id="trix_attachment" type="file" name="attachment">
                                     <div class="col-sm-6">
-                                        <trix-editor input="iDescription" placeholder="Masukkan deskripsi"></trix-editor>
+                                    <trix-editor input="content"></trix-editor>
                                     </div>
+
+                                    
                                 </div>
                                 <div class="form-group row">
                                     <label for="iImage" class="col-form-label col-sm-3 text-lg-right text-left">Lokasi</label>
@@ -73,7 +75,7 @@
                             <div class="card-footer">
                             <div class="row">
                                 <div class="col-sm-9 offset-sm-3">
-                                    <button type="submit" class="btn btn-primary mr-2"><i class="fa fa-save mr-1"></i> Simpan</button>
+                                    <input type="submit" class="btn btn-primary mr-2" value="Submit"><i class="fa fa-save mr-1"></i></input>
                                     <a href="<?= BASE_URL ?>/destination" class="btn btn-default">Batal</a>
                                 </div>
                             </div>

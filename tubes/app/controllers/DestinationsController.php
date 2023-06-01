@@ -15,7 +15,7 @@ class DestinationsController extends Controller
         $data['parsley'] = true;
 
         $totalItem = $this->model('Destination')->getTotalItem();
-        $totalItemByPage = 10;
+        $totalItemByPage = 12;
         $totalPage = ceil($totalItem / $totalItemByPage);
         
         $pageNow = isset($queryStringPagination) ? $queryStringPagination : 1;

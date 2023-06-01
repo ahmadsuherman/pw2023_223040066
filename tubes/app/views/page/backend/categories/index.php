@@ -32,7 +32,6 @@
                         <div class="card-header">
                             <h3 class="card-title">Daftar Kategori</h3>
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="dataTable table table-striped">
                                 <thead>
@@ -40,7 +39,7 @@
                                         <th class="text-right" width="5">No</th>
                                         <th>Nama</th>
                                         <th>Status</th>
-                                        <th class="text-center">Aksi</th>
+                                        <th class="text-center not-export-col">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,7 +76,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- /.card-body -->
                     </div>
                 </div>
             </div>

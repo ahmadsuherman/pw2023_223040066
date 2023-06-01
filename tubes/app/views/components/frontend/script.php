@@ -1,9 +1,7 @@
 </div>
-<!-- jQuery -->
 <script src="<?= BASE_URL ?>/back-office/plugins/jquery/jquery.min.js"></script>
 <script src="<?= BASE_URL ?>/back-office/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="<?= BASE_URL ?>/back-office/js/adminlte.min.js"></script>
-<script src="<?= BASE_URL ?>/back-office/js/demo.js"></script>
+<script src="<?= BASE_URL ?>/back-office/js/boostrap.min.js"></script>
 <script src="<?= BASE_URL ?>/back-office/plugins/pace-progress/pace.min.js"></script>
 
 <?php if(!empty($data['leaflet'])) { ?>
@@ -19,12 +17,11 @@
     var map = L.map('mapid').setView([-2.4833826, 117.8902853], 5);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="#">Ahmad Suherman</a> contributors'
+        attribution: '&copy; <a href="https://github.com/ahmadsuherman"><?= AUTHOR ?></a> contributors'
     }).addTo(map);
     var markers = L.markerClusterGroup();
 
     <?php
-    // Retrieve Grouped Locations
     $groupedLocations = $data['destinations'];
     if ($groupedLocations) {
         $markers = '';
@@ -49,18 +46,18 @@
             $displayImage   = "<img class='img-fluid img-rounded' src='$baseURL/uploads/img/destination/$image'>";
             
             $markers .= "var coordinatesGroup = [$coordinatesGroup];
-                        var category = '$category';
-                        var content = `<strong>Nama: </strong><a href=destinations/show/$categoryUid>$name</a> <br> 
-                        <strong>Kategori: </strong>$category <br>
-                        $displayImage
-                        `;
-                        
-                        var markerOptions = { 
-                          title: name,
-                          
-                        };
-                        var marker = L.marker(coordinatesGroup[0], markerOptions).bindPopup(content);
-                        markers.addLayer(marker);";
+                var category = '$category';
+                var content = `<strong>Nama: </strong><a href=destinations/show/$categoryUid>$name</a> <br> 
+                <strong>Kategori: </strong>$category <br>
+                $displayImage
+                `;
+                
+                var markerOptions = { 
+                    title: name,
+                    
+                };
+                var marker = L.marker(coordinatesGroup[0], markerOptions).bindPopup(content);
+                markers.addLayer(marker);";
         }
 
         echo $markers;
@@ -77,7 +74,7 @@
         var map = L.map('mapid').setView([<?= $data['destination']['latitude']; ?>, <?= $data['destination']['longitude']; ?>], 13);
     
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="#">Ahmad Suherman</a> contributors'
+            attribution: '&copy; <a href="https://github.com/ahmadsuherman"><?= AUTHOR ?></a> contributors'
         }).addTo(map);
         
         L.marker([<?= $data['destination']['latitude']; ?>, <?= $data['destination']['longitude']; ?>]).addTo(map)
@@ -107,7 +104,6 @@
         } else {
             console.log('error. tidak ditemukan tipe');
         }
-        
     }
 </script>
 <?php } ?>

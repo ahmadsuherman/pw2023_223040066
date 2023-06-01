@@ -1,17 +1,9 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
-
- <!-- Content Wrapper. Contains page content -->
- <div class="content-wrapper">
-    <!-- Main content -->
+<div class="content-wrapper">
     <div class="content p-2">
-      <div class="container">
-
+        <div class="container">
         <div class="row mt-3">
             <div class="col-md-10 offset-md-1">
                 <div class="list-group">
-                    
                     <?php if(count($data['destinations']) > 0): ?>
                     <?php foreach($data['destinations'] as $destination): ?>
                     <div class="list-group-item">
@@ -36,16 +28,9 @@
                     <?php else: ?>
                     <h3 class="m-auto">Destinasi tidak ditemukan</h3>
                     <?php endif;  ?>
-                    
-                   
-                    
-
                 </div>
             </div>
         </div>
-        <!-- /.row -->
-      </div>
+        </div>
     </div>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+</div>
