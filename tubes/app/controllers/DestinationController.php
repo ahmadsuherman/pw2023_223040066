@@ -21,7 +21,6 @@ class DestinationController extends Controller
         $data['destinations'] = $this->model('Destination')->getDestinations();
         $data['moment'] = true;
         $data['dataTable'] = true;
-        $data['toastr'] = true;
         $data['sweetalert2'] = true;
         
         $this->view('components/backend/header', $data);
@@ -36,12 +35,11 @@ class DestinationController extends Controller
 
     public function create()
     {
-        // dd($_SESSION['user']);
         $data['title'] = 'Tambah Destinasi';
         $data['categories'] = $this->model('Category')->getCategorySelect();
         $data['leaflet'] = true;
         $data['createLeaflet'] = true;
-        $data['trix'] = true;
+        $data['summernote'] = true;
         $data['parsley'] = true;
         
         $this->view('components/backend/header', $data);
@@ -55,12 +53,10 @@ class DestinationController extends Controller
 
     public function store()
     {
-        // dd($_POST);
         if (isset($_POST['submit'])) {
-            dd($_FILES);
             $imageName 	    = $_FILES['image']['name'];
 
-            $imageName = uploadImage($imageName, 'uploads/img/destination/');
+            $imageName = uploadImage('image', $imageName, 'uploads/img/destination/');
             
             $name = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
             $categoryId = stripslashes(strip_tags(htmlspecialchars($_POST['category_id'], ENT_QUOTES)));
@@ -91,13 +87,14 @@ class DestinationController extends Controller
     public function show(string $uid)
     {
         
-        $data['title'] = 'Detail Destinasi';
-        $data['updateStatus'] = 'destination/updateStatus';
+        $data['title']          = 'Detail Destinasi';
+        $data['pathDelete']     = 'destination/destroy';
         
-        $data['destination'] = $this->model('Destination')->findByUid(uid: $uid);
-        $data['leaflet'] = true;
-        
-        $data['showLeaflet'] = true;
+        $data['destination']    = $this->model('Destination')->findByUid(uid: $uid);
+        $data['leaflet']        = true;
+        $data['delete']         = true;
+        $data['sweetalert2']    = true;
+        $data['showLeaflet']    = true;
         
         $this->view('components/backend/header', $data);
         $this->view('components/backend/navbar', $data);
@@ -116,7 +113,7 @@ class DestinationController extends Controller
         $data['categories'] = $this->model('Category')->getCategorySelect();
         $data['leaflet'] = true;
         $data['editLeaflet'] = true;
-        $data['trix'] = true;
+        $data['summernote'] = true;
         $data['parsley'] = true;
 
         if (!$data['destination']) {
@@ -134,7 +131,6 @@ class DestinationController extends Controller
 
     public function update(string $uid)
     {
-        
         if (isset($_POST['submit'])) {
             
             $destination = $this->model('Destination')->findByUid(uid: $uid);
@@ -143,10 +139,10 @@ class DestinationController extends Controller
                 $imageName 	    = $destination['image'];
             } else {
                 $imageName 	    = $_FILES['image']['name'];
-                $imageName = uploadImage($imageName, 'uploads/img/destination/'); 
+                $imageName = uploadImage('image', $imageName, 'uploads/img/destination/'); 
                 unlink('uploads/img/destination/' . $destination['image']);   
             }
-            // dd($_POST);
+
             $name = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
             $categoryId = stripslashes(strip_tags(htmlspecialchars($_POST['category_id'], ENT_QUOTES)));
             $description = stripslashes(strip_tags(htmlspecialchars($_POST['description'], ENT_QUOTES)));
@@ -177,21 +173,26 @@ class DestinationController extends Controller
 
     public function destroy(string $uid)
     {
-        $uid = stripslashes(strip_tags(htmlspecialchars($uid, ENT_QUOTES)));
+        // dd(isset($_POST['uid']));
+        if(isset($_POST['uid'])){
+            $uid = stripslashes(strip_tags(htmlspecialchars($uid, ENT_QUOTES)));
 
-        $destination = $this->model('Destination')->findByUid(uid: $uid);
+            $destination = $this->model('Destination')->findByUid(uid: $uid);
 
-        unlink('uploads/img/destination/' . $destination['image']);
+            unlink('uploads/img/destination/' . $destination['image']);
 
-        $this->model('Destination')->delete(uid: $uid);
+            $this->model('Destination')->delete(uid: $uid);
 
-        $alert = [
-            'type' => 'success',
-            'message' => $destination['name'] . ' berhasil dihapus'
-        ];
+            $alert = [
+                'type' => 'success',
+                'message' => $destination['name'] . ' berhasil dihapus'
+            ];
 
-        $_SESSION['alert'] = $alert;
+            $_SESSION['alert'] = $alert;
 
-        header("location:" . BASE_URL . "/destination");
+            header("location:" . BASE_URL . "/destination");
+        } else {
+            header("location:" . BASE_URL . "/dashboard");
+        }
     }    
 }

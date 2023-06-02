@@ -21,9 +21,7 @@ class CategoryController extends Controller
         $data['categories'] = $this->model('Category')->getCategories();
         $data['moment'] = true;
         $data['dataTable'] = true;
-        $data['toastr'] = true;
         $data['sweetalert2'] = true;
-        
 
         $this->view('components/backend/header', $data);
         $this->view('components/backend/navbar', $data);
@@ -109,18 +107,23 @@ class CategoryController extends Controller
 
     public function updateStatus(string $uid)
     {
-        $category = $this->model('Category')->findByUid(uid: $uid);
-        // dd($category['is_active']);
-        $this->model('Category')->updateStatus(uid: $uid, is_active: $category['is_active']);
-
-        $alert = [
-            'type'  => 'success',
-            'message' => 'Status ' . $category['name'] . ' berhasil diperbarui',
-        ];
-
-        $_SESSION['alert'] = $alert;
-
-        header("location:" . BASE_URL . "/category");
+        if(isset($_POST['uid'])){
+            $category = $this->model('Category')->findByUid(uid: $uid);
+            // dd($category['is_active']);
+            $this->model('Category')->updateStatus(uid: $uid, is_active: $category['is_active']);
+    
+            $alert = [
+                'type'  => 'success',
+                'message' => 'Status ' . $category['name'] . ' berhasil diperbarui',
+            ];
+    
+            $_SESSION['alert'] = $alert;
+    
+            header("location:" . BASE_URL . "/category");
+        } else {
+            header("location:" . BASE_URL . "/dashboard");
+        }
+        
     }
 
     public function delete()

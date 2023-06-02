@@ -37,6 +37,7 @@ class Destination
         $this->db->query("SELECT destinations.*, categories.name AS category_name FROM $this->table 
             LEFT JOIN categories ON destinations.category_id = categories.id 
             WHERE destinations.deleted_at <=> null
+            ORDER BY created_at DESC
             LIMIT $initialLimit, $totalItem
         ");
 

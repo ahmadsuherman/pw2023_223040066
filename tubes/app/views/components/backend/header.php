@@ -22,8 +22,13 @@
   <link rel="stylesheet" href="<?= BASE_URL ?>/back-office/plugins/pace-progress/themes/black/pace-theme-flat-top.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>/back-office/css/boostrap.min.css">
   
-  <?php if (!empty($data['trix'])) { ?>
-  <link rel="stylesheet" href="<?= BASE_URL ?>/back-office/plugins/trix/trix.css">
+  <?php if (!empty($data['summernote'])) { ?>
+  <link rel="stylesheet" href="<?= BASE_URL ?>/back-office/plugins/summernote/summernote-bs4.min.css">
+    <style>
+      .note-editor .note-placeholder {
+        display: block !important;
+      }
+    </style>
   <?php } ?>
 
   <?php if (!empty($data['dataTable'])) { ?>
@@ -38,10 +43,6 @@
 
   <?php if (!empty($data['daterangepicker'])) { ?>
   <link rel="stylesheet" href="<?= BASE_URL ?>/back-office/plugins/daterangepicker/daterangepicker.css">
-  <?php } ?>
-
-  <?php if (!empty($data['toastr'])) { ?>
-  <link rel="stylesheet" href="<?= BASE_URL ?>/back-office/plugins/summernote/summernote-bs4.min.css">
   <?php } ?>
 
   <?php if (!empty($data['leaflet'])) { ?>

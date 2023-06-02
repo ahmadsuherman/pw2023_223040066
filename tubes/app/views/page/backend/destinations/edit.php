@@ -50,9 +50,11 @@
                                 </div>
                                 <div class="form-group row">
                                     <label for="iDescription" class="col-form-label col-sm-3 text-lg-right text-left">Deskripsi</label>
-                                    <input value="<?= $data['destination']['description'] ?>" id="iDescription" name="description" style="opacity: 0; width: 0; float: left;">
                                     <div class="col-sm-6">
                                         <trix-editor input="iDescription" placeholder="Masukkan deskripsi"></trix-editor>
+                                        <textarea id="summernote" name="description">
+                                        <?= $data['destination']['description'] ?>
+                                        </textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">

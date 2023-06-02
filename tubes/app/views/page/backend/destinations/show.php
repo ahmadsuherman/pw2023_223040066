@@ -48,7 +48,7 @@
                     </div>
                     <div class="card-footer">
                         <a href="<?= BASE_URL ?>/destination/edit/ <?= $data['destination']['uid'] ?>" id="edit-plant-<?= $data['destination']['uid'] ?>" class="btn btn-info">Ubah</a>
-                        <a href="<?= BASE_URL ?>/destination/destroy/ <?= $data['destination']['uid'] ?>" id="edit-plant-<?= $data['destination']['uid'] ?>" class="btn btn-danger">Hapus</a>
+                        <button onclick="deleteData('<?= $data['destination']['uid'] ?>', '<?= $data['destination']['name'] ?>', 'Destinasi')" id="delete-plant-<?= $data['destination']['uid'] ?>" class="btn btn-danger">Hapus</button>
                         <a href="<?= BASE_URL ?>/destination" class="btn btn-link">Kembali</a>
                     </div>
                 </div>

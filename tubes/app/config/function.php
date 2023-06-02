@@ -41,7 +41,7 @@ function dd($value)
     echo "</pre>";
 }
 
-function uploadImage($file, $dir)
+function uploadImage($requestName, $file, $dir)
 {
 
     if(!empty($file)) {
@@ -54,7 +54,7 @@ function uploadImage($file, $dir)
      
         $file = $fileRename; // untuk keperluan Query INSERT
 
-        move_uploaded_file($_FILES['image']['tmp_name'], $pathImage);
+        move_uploaded_file($_FILES[$requestName]['tmp_name'], $pathImage);
     } else {
         $file = 'img/default.png';
     }

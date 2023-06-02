@@ -1,10 +1,10 @@
 </div>
     <script src="<?= BASE_URL ?>/back-office/plugins/jquery/jquery.min.js"></script>
-    <script src="<?= BASE_URL ?>/back-office/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="<?= BASE_URL ?>/back-office/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="<?= BASE_URL ?>/back-office/plugins/pace-progress/pace.min.js"></script>
-
+    
     <script src="<?= BASE_URL ?>/back-office/js/boostrap.min.js"></script>
-    <script src="<?= BASE_URL ?>/back-office/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?= BASE_URL ?>/back-office/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     
     <?php if (!empty($data['sweetalert2'])) { ?>
@@ -20,35 +20,60 @@
     <script type="text/javascript" src="<?= BASE_URL ?>/back-office/plugins/moment/locale/id.js"></script>
     <?php } ?>
        
-    <?php if (!empty($data['trix'])) { ?>
-    <script type="text/javascript" src="<?= BASE_URL ?>/back-office/plugins/trix/trix.min.js"></script>
+    <?php if (!empty($data['summernote'])) { ?>
+    <script src="<?= BASE_URL ?>/back-office/plugins/summernote/summernote-bs4.min.js"></script>
     <script>
         $(function () {
-            $('input[type=url]').removeAttr('required');
+            
+            $('#summernote').summernote({
+                height: 300,
+                // placeholder: 'Deskripsi',
+                tabsize: 2,
+                callbacks: {
+                    onImageUpload: function(files) {
+                        for(let i = 0; i < files.length; i++){
+                            uploadImage(files[i])
+                        }
+                    },
+                    onMediaDelete: function(target) {
+                        deleteImage(target[0].src)
+                    }
+                }
+            })
         })
 
-        function uploadData(event) {
-            event.preventDefault();
-
-            var form = event.target;
-            var formData = new FormData(form);
-
-            // Get the content from the Trix editor
-            var content = document.querySelector('trix-editor').value;
-            formData.append('content', content);
-
-            var request = new XMLHttpRequest();
-            request.open("POST", form.action, true);
-
-            request.onreadystatechange = function() {
-                if (request.readyState === 4 && request.status === 200) {
-                console.log(request.responseText);
+        function uploadImage(file) {
+            let out = new FormData();
+            out.append('file', file, file.name);
+            $.ajax({
+                method: 'POST',
+                url: '/pw2023_223040066/tubes/upload',
+                contentType: false,
+                cache: false,
+                processData: false,
+                data: out,
+                success: function(img) {
+                    $('#summernote').summernote('insertImage', img);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error(textStatus + " " + errorThrown);
                 }
-            };
-
-            request.send(formData);
+            });
         }
 
+        function deleteImage(src) {
+            $.ajax({
+                method: 'POST',
+                url: '/pw2023_223040066/tubes/upload/deleteGambar',
+                cache: false,
+                data: {
+                    src: src
+                },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        }
     </script>
     <?php } ?>
 
@@ -68,7 +93,6 @@
     
     <script>
         $(function () {
-
             var table = $(".dataTable").DataTable({
                 "responsive": true, 
                 "lengthChange": true, 
@@ -128,12 +152,9 @@
                 ],
                 // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             }).buttons().container().appendTo("#example1_wrapper .col-md-6:eq(0)");
-    
         });
 
-        
-
-        function updateStatus(id, name) {
+        function updateStatus(uid, name) {
             Swal.mixin({
                 icon: "warning",
                 customClass: {
@@ -150,8 +171,8 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $("body").append(`
-                        <form action="<?= BASE_URL .'/'. $data['updateStatus']?>/${id}" method="POST" class="d-none" id="updateStatus">
-                        <input type="hidden" name="id" value="${id}">
+                        <form action="<?= BASE_URL .'/'. $data['updateStatus']?>/${uid}" method="POST" class="d-none" id="updateStatus">
+                        <input type="hidden" name="uid" value="${uid}">
                         <input type="hidden" name="name" value="${name}">
                         </form>
                     `)
@@ -295,11 +316,10 @@
                     en: 'The values cannot be less or the same.'
                 }
             })
-            console.log($form);
+            
             $form.parsley()
             
             $form.on('submit', function () {
-                console.log("hihi")
                 $(this).find('.btn[type="submit"]').attr('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>')
             })
         })
@@ -307,7 +327,6 @@
     <?php } ?>
 
     <?php if(!empty($data['chart'])) { ?>
-
     <script src="<?= BASE_URL ?>/back-office/plugins/chart.js/Chart.min.js"></script>
     <script>
         var ctx = document.getElementById('newUserDashboard').getContext('2d');
@@ -388,6 +407,37 @@
                 }
             }
         });
+    </script>
+    <?php } ?>
+    <?php if(!empty($data['delete'])) { ?>
+    <script>
+        function deleteData(uid, name, title) {
+            Swal.mixin({
+                icon: "warning",
+                customClass: {
+                    confirmButton: "btn btn-primary waves-effect waves-light mr-2",
+                    cancelButton: "btn btn-default waves-effect waves-light"
+                },
+                buttonsStyling: false
+            }).fire({
+                html: `<h4>Hapus ${title}</h4>
+                <p class="mb-0">Apakah anda yakin ingin menghapus ${name}?</p>`,
+                showCancelButton: true,
+                confirmButtonText: "OK",
+                cancelButtonText: "Batal"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $("body").append(`
+                        <form action="<?= BASE_URL .'/'. $data['pathDelete']?>/${uid}" method="POST" class="d-none" id="fDelete">
+                        <input type="hidden" name="uid" value="${uid}">
+                        <input type="hidden" name="name" value="${name}">
+                        </form>
+                    `)
+
+                    $("#fDelete").trigger("submit")
+                }
+            })
+        }
     </script>
     <?php } ?>
 </body>
