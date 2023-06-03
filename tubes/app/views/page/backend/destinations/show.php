@@ -14,6 +14,17 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row d-flex justify-content-center">
+                <?php if(isset($_SESSION['alert'])) : ?>
+                <div class="col-12">
+                    <div class="alert alert-<?=$_SESSION['alert']['type']?> alert-dismissible fade show" role="alert">
+                    <?=$_SESSION['alert']['message']?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                </div>
+                <?php unset($_SESSION['alert']); endif; ?>
+                
                 <div class="col-md-2 mb-4">
                 <div class="card card-primary card-outline">
                     <div class="card-header">

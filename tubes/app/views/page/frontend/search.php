@@ -26,7 +26,14 @@
                     
                     <?php endforeach ?>
                     <?php else: ?>
-                    <h3 class="m-auto">Destinasi tidak ditemukan</h3>
+                    <section class="content text-center">
+                    <div class="not-found-page" style="margin-top:10%;">
+                        <div class="not-found-content">
+                        <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Destinasi tidak ditemukan.</h3>
+                        </div>
+                    </div>
+                    </section>
+                    
                     <?php endif;  ?>
                 </div>
             </div>
