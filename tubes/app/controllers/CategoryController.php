@@ -53,24 +53,34 @@ class CategoryController extends Controller
         if (isset($_POST['submit'])) {
             $name = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
             
-            $this->model('Category')->add(
-                name: $name,
-            );
-
-            $alert = [
-                'type'  => 'success',
-                'message' => $name . ' berhasil ditambahkan',
-            ];
-
-            header("location:" . BASE_URL . "/category");
-        
-            $_SESSION['alert'] = $alert;
+            $category = $this->model('Category')->findByName(name: $name);
+            if (!$category) {
+                $this->model('Category')->add(
+                    name: $name,
+                );
+    
+                $alert = [
+                    'type'  => 'success',
+                    'message' => $name . ' berhasil ditambahkan',
+                ];
+    
+                header("location:" . BASE_URL . "/category");
+            
+                $_SESSION['alert'] = $alert;
+            } else {
+                $alert = [
+                    'type'  => 'danger',
+                    'message' => $name . ' sudah digunakan',
+                ];
+                $_SESSION['alert'] = $alert;
+                header("location:" . BASE_URL . "/category/create");
+            }
         }
     }
 
     public function edit($uid)
     {
-        $data['title'] = 'Ubah Category';
+        $data['title'] = 'Ubah Kategori';
         $data['category'] = $this->model('Category')->findByUid(uid: $uid);
         $data['parsley'] = true;
         
@@ -92,6 +102,8 @@ class CategoryController extends Controller
         if (isset($_POST['submit'])) {
             $name = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
             
+            $category = $this->model('Category')->findByName(name: $name);
+            if(!$category){
                 $this->model('Category')->update(uid: $uid, name: $name);
                 
                 $alert = [
@@ -102,6 +114,15 @@ class CategoryController extends Controller
                 $_SESSION['alert'] = $alert;
 
                 header("location:" . BASE_URL . "/category");
+            } else {
+                $alert = [
+                    'type'  => 'danger',
+                    'message' => $name . ' sudah digunakan',
+                ];
+                $_SESSION['alert'] = $alert;
+                header("location:" . BASE_URL . "/category/edit/". $uid);
+            }
+            
         }
     }
 
@@ -122,41 +143,6 @@ class CategoryController extends Controller
             header("location:" . BASE_URL . "/category");
         } else {
             header("location:" . BASE_URL . "/dashboard");
-        }
-        
+        }   
     }
-
-    public function delete()
-    {
-        $id = stripslashes(strip_tags(htmlspecialchars($_POST['id'], ENT_QUOTES)));
-        $dataBarang = $this->model('M_barang')->getDataBarangById(id: $id);
-
-        unlink('assets/images/barang/' . $dataBarang['gambar']);
-
-        $this->model('M_barang')->deleteBarang(id: $id);
-
-        $alert = [
-            'title' => 'Berhasil',
-            'text' => 'Berhasil menghapus data barang',
-            'icon' => 'success',
-            'href' => BASE_URL . '/barang'
-        ];
-
-        $_SESSION['alert'] = $alert;
-
-        header("location:" . BASE_URL . "/barang");
-    }
-
-    function textToSlug(?string $text)
-    {
-        $text = trim($text);
-        if (empty($text)) return '';
-        $text = preg_replace("/[^a-zA-Z0-9\-\s]+/", "", $text);
-        $text = strtolower(trim($text));
-        $text = str_replace(' ', '-', $text);
-        $text = $text_ori = preg_replace('/\-{2,}/', '-', $text);
-        return $text;
-    }
-
-    
 }

@@ -61,6 +61,14 @@ class Category
         return $this->db->single();
     }
 
+    public function findByName(string $name)
+    {
+        $this->db->query("SELECT * FROM $this->table WHERE name=:name");
+        $this->db->bind('name', $name);
+        
+        return $this->db->single();
+    }
+
     public function update(string $uid, string $name)
     {
         $this->db->query("UPDATE $this->table SET name=:name WHERE uid=:uid");

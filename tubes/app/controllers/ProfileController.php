@@ -36,19 +36,31 @@ class ProfileController extends Controller
             $email = stripslashes(strip_tags(htmlspecialchars($_POST['email'], ENT_QUOTES)));
             $uid   = $_SESSION['user']['uid'];
     
-            $this->model('User')->update(uid: $uid, name: $name, email: $email);
-            $user = $this->model('User')->findByUid(uid: $uid);
-            $_SESSION['user'] = $user;
-            
-            $alert = [
-                'type'  => 'success',
-                'message' => $name . ' berhasil diperbarui',
-            ];
+            $resultCek = $this->model('User')->cekUser(email: $email);
 
-            $_SESSION['alert'] = $alert;
-
-            header("location:" . BASE_URL . "/profile");
-            
+            if (!$resultCek) {
+                $this->model('User')->updateProfile(uid: $uid, name: $name, email: $email);
+                $user = $this->model('User')->findByUid(uid: $uid);
+                $_SESSION['user'] = $user;
+                
+                $alert = [
+                    'type'  => 'success',
+                    'message' => $name . ' berhasil diperbarui',
+                ];
+    
+                $_SESSION['alert'] = $alert;
+    
+                header("location:" . BASE_URL . "/profile");
+            } else {
+                $alert = [
+                    'type'  => 'danger',
+                    'message' => $email . ' sudah digunakan',
+                ];
+    
+                $_SESSION['alert'] = $alert;
+    
+                header("location:" . BASE_URL . "/profile");
+            }
         }
     }
 

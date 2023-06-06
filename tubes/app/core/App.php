@@ -12,7 +12,7 @@ class App
         if(isset($url[2])) $thirdUrl    = $url[2];
        
         if (isset($firstUrl)) {
-            if (file_exists('../app/controllers/' . $firstUrl . 'Controller.php')) {
+            if (file_exists('../app/controllers/' . ucfirst($firstUrl) . 'Controller.php')) {
                 $this->controller = $firstUrl;
                 unset($url[0]);
             } else {

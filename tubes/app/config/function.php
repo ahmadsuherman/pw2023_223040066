@@ -62,4 +62,30 @@ function uploadImage($requestName, $file, $dir)
     return $file;
 }
 
+function getDateFormatDFY($date)
+{
+    return date('d F Y', strtotime($date));
+}
+
+function getDateFormatDFYIndonesian($date){
+    // dd($date); 
+	$bulan = array (
+		1 =>   'Januari',
+		'Februari',
+		'Maret',
+		'April',
+		'Mei',
+		'Juni',
+		'Juli',
+		'Agustus',
+		'September',
+		'Oktober',
+		'November',
+		'Desember'
+	);
+	$break = explode('-', $date);
+    
+	return $break[2] . ' ' . $bulan[ (int)$break[1] ] . ' ' . $break[0];
+}
+
 ?>

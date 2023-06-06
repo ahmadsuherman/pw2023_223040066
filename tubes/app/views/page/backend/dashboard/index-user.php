@@ -10,8 +10,10 @@
     </section>
     <section class="content">
         <div class="container-fluid">
+
+        
             <div class="row d-flex justify-content-center">
-                <div class="col-md-11">
+                <div class="col-md-6 d-none">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <h3 class="card-title">Jumlah Pengguna Berdasarkan Tanggal</h3>
@@ -21,9 +23,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="row d-flex justify-content-center">
                 <div class="col-md-6">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
@@ -34,18 +33,37 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-5">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h3 class="card-title">Jumlah Kategori Berdasarkan Status</h3>
+                            <h3 class="card-title"><?= count($data['getNewUserRegistrationDashboard']) ?> Pengguna Baru Registasi</h3>
                         </div>
-                        <div class="card-body">
-                            <canvas id="categoryGroupByIsActive"></canvas>
+
+                        <div class="card-body p-0">
+                        <ul class="products-list product-list-in-card pl-2 pr-2">
+                            <?php foreach($data['getNewDestinationDashboard'] as $key => $newDestination): ?>
+                            <li class="item">
+
+                                <div class="product-img">
+                                    <img src="<?= BASE_URL ?>/uploads/img/destination/<?= $newDestination['image'] ?>" alt="Gambar <?= $newDestination['name'] ?>" class="img-size-50">
+                                </div>
+                                <div class="product-info">
+                                    <span class="product-title"><?= $newDestination['name'] ?></span>
+                                    <span class="badge badge-warning float-right"><?= getDateFormatDFYIndonesian($newDestination['created_at']) ?></span></span>
+                                    <span class="product-description">
+                                        <?= $newDestination['category_name'] ?>
+                                    </span>
+                                </div>
+                            </li>
+                            <?php endforeach; ?>
+
+                        </ul>
                         </div>
+
                     </div>
                 </div>
             </div>
-            
         </div>
     </section>
 </div>

@@ -25,6 +25,10 @@ class DashboardController extends Controller
         $data['chart'] = true;
 
         $data['getNewUserDashboard'] = $this->model('User')->getNewUserDashboard();
+        $data['getNewDestinationDashboard'] = $this->model('Destination')->getNewDestinations();
+        
+        $data['getNewUserRegistrationDashboard'] = $this->model('User')->getNewUserRegistrationDashboard();
+        
         $data['getDestinationGroupByCategoryDashboard'] = $this->model('Destination')->getDestinationGroupByCategoryDashboard();
         $data['getCategoryGroupByIsActive'] = $this->model('Category')->getCategoryGroupByIsActive();
         
@@ -47,7 +51,14 @@ class DashboardController extends Controller
         $this->view('components/backend/navbar', $data);
         $this->view('components/backend/sidebar', $data);
         
-        $this->view('page/backend/dashboard/index', $data);
+        if($_SESSION['user']['level'] == 'Admin'){
+            $this->view('page/backend/dashboard/index-admin', $data);
+        } 
+        
+        if($_SESSION['user']['level'] == 'Pengguna'){
+            $this->view('page/backend/dashboard/index-user', $data);
+        } 
+        
         $this->view('components/backend/footer', $data);
         $this->view('components/backend/script', $data);
         

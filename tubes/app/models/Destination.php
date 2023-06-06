@@ -46,9 +46,14 @@ class Destination
 
     public function getNewDestinations()
     {
-        $this->db->query("SELECT * FROM $this->table 
+        $this->db->query("SELECT 
+            destinations.*,
+            date_format(destinations.created_at, '%Y-%m-%d') as created_at,
+            categories.name as category_name
+        FROM $this->table 
+        LEFT JOIN categories ON destinations.category_id = categories.id
         WHERE destinations.deleted_at <=> null
-        ORDER BY created_at 
+        ORDER BY destinations.created_at 
         DESC LIMIT 5 ");
 
         return $this->db->resultSet();

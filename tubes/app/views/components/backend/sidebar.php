@@ -34,6 +34,14 @@
                         <p>Destinasi</p>
                     </a>
                 </li>
+
+                <li class="nav-header">Data</li>
+                <li class="nav-item">
+                    <a aria-current="page" href="<?= BASE_URL ?>/user" class="nav-link <?= ($_SERVER["REQUEST_URI"] === BASE_URL.'/user') ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Pengguna</p>
+                    </a>
+                </li>
                 <?php endif; ?>
             </ul>
         </nav>

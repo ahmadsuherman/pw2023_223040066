@@ -5,7 +5,7 @@
                 <div class="col">
                 <span class="h4">Kategori</span>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?= BASE_URL ?>/category">Daftar</a></li>
+                        <li class="breadcrumb-item"><a href="<?= BASE_URL ?>/user">Daftar</a></li>
                         <li class="breadcrumb-item active">Tambah</li>
                     </ol>
                 </div>
@@ -25,17 +25,40 @@
                     </button>
                     </div>
                     <?php unset($_SESSION['alert']); endif; ?>
+                    
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h3 class="card-title">Tambah Kategori</h3>
+                            <h3 class="card-title">Tambah Pengguna</h3>
                         </div>
-                        <form class="form-horizontal" data-form="validate" action="<?= BASE_URL ?>/category/store" method="post">
+                        <form class="form-horizontal" data-form="validate" action="<?= BASE_URL ?>/user/store" method="post">
                             <input type="hidden" name="submit">
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="iName" class="col-form-label col-sm-3 text-lg-right text-left">Nama</label>
+                                    <label for="iName" class="col-form-label col-sm-3 text-lg-right text-left">Nama Lengkap</label>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control" id="iName" placeholder="Nama" name="name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="iEmail" class="col-form-label col-sm-3 text-lg-right text-left">Email</label>
+                                    <div class="col-sm-6">
+                                        <input type="email" class="form-control" id="iEmail" placeholder="Email" name="email" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="iPassword" class="col-form-label col-sm-3 text-lg-right text-left">Kata Sandi</label>
+                                    <div class="col-sm-6">
+                                    <input type="password" class="form-control" id="iPassword" placeholder="Kata Sandi" name="password" required data-parsley-minlength="8">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="iLevel" class="col-form-label col-sm-3 text-lg-right text-left">Tipe Pengguna</label>
+                                    <div class="col-sm-6">
+                                        <select name="level" class="form-control" id="iLevel" required>
+                                            <option value="">Pilih Tipe</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="Pengguna">Pengguna</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -44,7 +67,7 @@
                             <div class="row">
                                 <div class="col-sm-9 offset-sm-3">
                                     <button type="submit" class="btn btn-info mr-2"><i class="fa fa-save mr-1"></i> Simpan</button>
-                                    <a href="<?= BASE_URL ?>/category" class="btn btn-default">Batal</a>
+                                    <a href="<?= BASE_URL ?>/user" class="btn btn-default">Batal</a>
                                 </div>
                             </div>
                             </div>

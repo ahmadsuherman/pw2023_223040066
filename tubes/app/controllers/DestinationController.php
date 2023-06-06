@@ -57,6 +57,18 @@ class DestinationController extends Controller
             $imageName 	    = $_FILES['image']['name'];
 
             $imageName = uploadImage('image', $imageName, 'uploads/img/destination/');
+            $maxSize = 2 * 1024 * 1024;
+            
+            if ($_FILES["image"]["size"] > $maxSize) {
+                $alert = [
+                    'type'      => 'danger',
+                    'message'   => 'Maksimal ukuran gambar 2MB',
+                ];
+    
+                $_SESSION['alert'] = $alert;
+                header("location:" . BASE_URL . "/destination/create");
+                exit();
+            } 
             
             $name = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
             $categoryId = stripslashes(strip_tags(htmlspecialchars($_POST['category_id'], ENT_QUOTES)));
@@ -135,6 +147,19 @@ class DestinationController extends Controller
             
             $destination = $this->model('Destination')->findByUid(uid: $uid);
             
+            $maxSize = 2 * 1024 * 1024;
+            
+            if ($_FILES["image"]["size"] > $maxSize) {
+                $alert = [
+                    'type'      => 'danger',
+                    'message'   => 'Maksimal ukuran gambar 2MB',
+                ];
+    
+                $_SESSION['alert'] = $alert;
+                header("location:" . BASE_URL . "/destination/create");
+                exit();
+            } 
+
             if($_FILES['image']['error'] == 4){
                 $imageName 	    = $destination['image'];
             } else {
