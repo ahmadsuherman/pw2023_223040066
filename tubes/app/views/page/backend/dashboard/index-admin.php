@@ -11,7 +11,35 @@
     <section class="content">
         <div class="container-fluid">
 
-        
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-4">
+                    <div class="small-box bg-primary">
+                    <div class="inner">
+                        <p>Total Kategori</p>
+                        <h5 class="text-center"><?= $data['getCountTotalCategoryDashboard'][0]['total_category'] ?> Item</h5>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="small-box bg-warning">
+                    <div class="inner">
+                        <p>Total Destinasi</p>
+                        <h5 class="text-center"><?= $data['getCountTotalDestinationDashboard'][0]['total_destination'] ?> Item</h5>
+                    </div>
+                    
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="small-box bg-info">
+                    <div class="inner">
+                        <p>Total Pengguna</p>
+                        <h5 class="text-center"><?= $data['getCountTotalUserDashboard'][0]['total_user'] ?> Akun</h5>
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+
             <div class="row d-flex justify-content-center">
                 <div class="col-md-7">
                     <div class="card card-primary card-outline">
@@ -27,7 +55,7 @@
                 <div class="col-md-4">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h3 class="card-title"><?= count($data['getNewUserRegistrationDashboard']) ?> Pengguna Baru Registasi</h3>
+                            <h3 class="card-title"><?= count($data['getNewUserRegistrationDashboard']) ?> Destinasi Baru</h3>
                         </div>
 
                         <div class="card-body p-0">
@@ -61,7 +89,7 @@
                 <div class="col-md-2">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h3 class="card-title"><?= count($data['getNewUserRegistrationDashboard']) ?> Destinasi Baru</h3>
+                            <h3 class="card-title"><?= count($data['getNewUserRegistrationDashboard']) ?> Pengguna Baru Registasi</h3>
                         </div>
 
                         <div class="card-body p-0">

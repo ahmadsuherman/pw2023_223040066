@@ -23,7 +23,7 @@
                 <a href="<?= BASE_URL ?>/destinations/show/<?= $newDestination['uid']; ?>">
                     <div class="card-img-overlay d-flex flex-column justify-content-end">
                     <h5 class="text-white" style="font-size: 34px; font-weight: bold;"><?= $newDestination['name']; ?></h5>
-                    <h6 class="text-white "> <i class="fa fa-tags fa-sm"></i> <?= $newDestination['category_name']; ?></h6>
+                    <h5 class="text-white "> <i class="fa fa-tags fa-sm"></i> <?= $newDestination['category_name']; ?></h5>
                     <h5 class="text-white">Terakhir diperbarui <?= getUpdatedAtFormatDestination($newDestination['updated_at']); ?></h5>
                   </a>
                 </div>

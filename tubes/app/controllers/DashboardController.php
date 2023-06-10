@@ -26,8 +26,11 @@ class DashboardController extends Controller
 
         $data['getNewUserDashboard'] = $this->model('User')->getNewUserDashboard();
         $data['getNewDestinationDashboard'] = $this->model('Destination')->getNewDestinations();
-        
         $data['getNewUserRegistrationDashboard'] = $this->model('User')->getNewUserRegistrationDashboard();
+        
+        $data['getCountTotalUserDashboard'] = $this->model('User')->getCountTotalUserDashboard();
+        $data['getCountTotalDestinationDashboard'] = $this->model('Destination')->getCountTotalDestinationDashboard();
+        $data['getCountTotalCategoryDashboard'] = $this->model('Category')->getCountTotalCategoryDashboard();
         
         $data['getDestinationGroupByCategoryDashboard'] = $this->model('Destination')->getDestinationGroupByCategoryDashboard();
         $data['getCategoryGroupByIsActive'] = $this->model('Category')->getCategoryGroupByIsActive();

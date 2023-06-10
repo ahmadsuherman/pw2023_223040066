@@ -174,4 +174,16 @@ class Destination
 
         return $this->db->resultSet();
     }
+
+    public function getCountTotalDestinationDashboard()
+    {
+        $this->db->query("SELECT 
+            COUNT(id) AS total_destination
+        FROM $this->table 
+        WHERE deleted_at <=> null
+        ORDER BY created_at DESC
+        ");
+
+        return $this->db->resultSet();
+    }
 }

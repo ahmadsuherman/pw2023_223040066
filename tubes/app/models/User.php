@@ -191,5 +191,16 @@ class User
         
         return $this->db->execute();
     }
-      
+    
+    public function getCountTotalUserDashboard()
+    {
+        $this->db->query("SELECT 
+            COUNT(id) AS total_user
+        FROM $this->table 
+        WHERE deleted_at <=> null
+        ORDER BY created_at DESC
+        ");
+
+        return $this->db->resultSet();
+    }
 }
