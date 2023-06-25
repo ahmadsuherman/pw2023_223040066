@@ -28,6 +28,20 @@
       .note-editor .note-placeholder {
         display: block !important;
       }
+
+      <?php
+      if($_SESSION['user']['is_demo'] == true){
+      ?>
+        .note-group-select-from-files {
+          display: none;
+        }
+
+        .note-editor .note-toolbar>.note-btn-group, .note-popover .popover-content>.note-btn-group{
+          display:none;
+        }
+      <?php
+      }
+      ?>
     </style>
   <?php } ?>
 

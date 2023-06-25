@@ -6,8 +6,14 @@
         <li class="nav-item d-sm-inline-block">
             <a href="<?= BASE_URL ?>/" class="nav-link">Home</a>
         </li>
+        
     </ul>
     <ul class="navbar-nav ml-auto">
+        <?php if(isset($_SESSION['user']['is_demo']) == true): ?>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a class="nav-link rounded text-center bg-warning pe-auto">Akun Demo</a>
+        </li>
+        <?php endif; ?>
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 <img src="<?= BASE_URL ?>/img/default-profile.png" class="user-image img-circle elevation-2" alt="Gambar <?= $_SESSION['user']['name']; ?>">
@@ -15,6 +21,7 @@
                 <?php if(isset($_SESSION['user'])) : echo $_SESSION['user']['name']; endif; ?>
                 </span>
             </a>
+            
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                 <li class="user-header bg-primary">
                     <img src="<?= BASE_URL ?>/img/default-profile.png" class="img-circle elevation-2 prof_image" alt="Gambar <?= $_SESSION['user']['name']; ?>">

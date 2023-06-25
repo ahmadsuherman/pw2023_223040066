@@ -53,6 +53,7 @@ class DestinationController extends Controller
 
     public function store()
     {
+        checkIsDemo();
         if (isset($_POST['submit'])) {
             $imageName 	    = $_FILES['image']['name'];
 
@@ -143,6 +144,7 @@ class DestinationController extends Controller
 
     public function update(string $uid)
     {
+        checkIsDemo();
         if (isset($_POST['submit'])) {
             
             $destination = $this->model('Destination')->findByUid(uid: $uid);
@@ -198,6 +200,7 @@ class DestinationController extends Controller
 
     public function destroy(string $uid)
     {
+        checkIsDemo();
         // dd(isset($_POST['uid']));
         if(isset($_POST['uid'])){
             $uid = stripslashes(strip_tags(htmlspecialchars($uid, ENT_QUOTES)));

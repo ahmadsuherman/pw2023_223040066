@@ -30,6 +30,7 @@ class ProfileController extends Controller
 
     public function update()
     {
+        checkIsDemo();
         if (isset($_POST['submit'])) {
 
             $name  = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
@@ -66,6 +67,7 @@ class ProfileController extends Controller
 
     public function updatePassword()
     {
+        checkIsDemo();
         if (isset($_POST['submit'])) {
 
             $current_password  = stripslashes(strip_tags(htmlspecialchars($_POST['current_password'], ENT_QUOTES)));

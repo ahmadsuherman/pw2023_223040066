@@ -49,6 +49,7 @@ class UserController extends Controller
 
     public function store()
     {
+        checkIsDemo();
         if (isset($_POST['submit'])) {
             $name       = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
             $email      = stripslashes(strip_tags(htmlspecialchars($_POST['email'], ENT_QUOTES)));
@@ -108,6 +109,7 @@ class UserController extends Controller
 
     public function update(string $uid)
     {
+        checkIsDemo();
         if (isset($_POST['submit'])) {
             $name = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
             $email = stripslashes(strip_tags(htmlspecialchars($_POST['email'], ENT_QUOTES)));
@@ -142,6 +144,7 @@ class UserController extends Controller
 
     public function destroy(string $uid)
     {
+        checkIsDemo();
         if(isset($_POST['uid'])){
             $uid = stripslashes(strip_tags(htmlspecialchars($uid, ENT_QUOTES)));
 

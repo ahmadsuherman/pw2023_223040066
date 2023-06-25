@@ -42,6 +42,10 @@
       </div>
   <?php } ?>
   
+  <div class="callout callout-info">
+    <h5>Akun Demo:</h5>
+    <p>demo@gmail.com <br>Password@123</p>
+  </div>
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
     <a href="<?= BASE_URL ?>" class="h1"><img class="img-fluid" src="<?= BASE_URL ?>/logo.png" alt="Logo"></a>

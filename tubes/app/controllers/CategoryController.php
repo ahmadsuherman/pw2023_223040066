@@ -50,6 +50,8 @@ class CategoryController extends Controller
 
     public function store()
     {
+        checkIsDemo();
+        
         if (isset($_POST['submit'])) {
             $name = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
             
@@ -99,6 +101,8 @@ class CategoryController extends Controller
 
     public function update(string $uid)
     {
+        checkIsDemo();
+
         if (isset($_POST['submit'])) {
             $name = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
             
@@ -128,6 +132,7 @@ class CategoryController extends Controller
 
     public function updateStatus(string $uid)
     {
+        checkIsDemo();
         if(isset($_POST['uid'])){
             $category = $this->model('Category')->findByUid(uid: $uid);
             // dd($category['is_active']);

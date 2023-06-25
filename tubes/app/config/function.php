@@ -88,4 +88,16 @@ function getDateFormatDFYIndonesian($date){
 	return $break[2] . ' ' . $bulan[ (int)$break[1] ] . ' ' . $break[0];
 }
 
+function checkIsDemo(){
+    if($_SESSION['user']['is_demo'] == true){
+        $alert = [
+            'type'  => 'warning',
+            'message' => 'Akun demo tidak dapat melakukan menambah & mengubah data',
+        ];
+
+        $_SESSION['alert'] = $alert; 
+        header("location:" . $_SERVER['HTTP_REFERER']);
+        exit();
+    }
+}
 ?>
