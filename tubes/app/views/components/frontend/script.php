@@ -163,5 +163,103 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
 </script>
+
+<?php if(!empty($data['ajaxComment'])) { ?>
+<script>
+    $(document).ready(function() {
+
+        let userId = '<?= $_SESSION['user']['uid'] ?>'
+        , destinationId = '<?= $data['destination']['uid'] ?>'
+
+        $('#commentForm').submit(function(e) {
+            e.preventDefault(); // Mencegah formulir dikirim ulang secara normal
+        
+            let commentText = $('#commentText').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/pw2023_223040066/tubes/ajax/storeComment', 
+                data: {
+                comment: commentText,
+                    user_id: userId,
+                    destination_id: destinationId,
+                },
+                success: function(response) {
+                    console.log(response)
+                    // Komentar berhasil dikirim, lakukan apa pun yang Anda inginkan setelah ini
+
+                    // Mengosongkan input komentar
+                    $('#commentText').val('');
+                    a = document.getElementById("cardComment");
+                    a.setAttribute("class", "card-comment");
+                    // Menambahkan komentar baru ke daftar komentar
+                    $('#commentSection').append('<p>' + commentText + '</p>');
+
+                    var commentCount = parseInt($('#commentCount').text());
+                    $('#commentCount').text(commentCount + 1);
+                },
+                error: function(xhr, status, error) {
+                    // Terjadi kesalahan saat mengirim komentar, tangani sesuai kebutuhan Anda
+                    console.error(error);
+                }
+            });
+        });
+
+        var likeButtonClicked = <?= $data['checkLike'] == true ? 'true' : 'false'; ?>;
+        $('#likeButton').click(function() {
+
+            if (likeButtonClicked) {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/pw2023_223040066/tubes/ajax/voidLike',
+                    dataType: 'json',
+                    data: {
+                        user_id: userId,
+                        destination_id: destinationId
+                    },
+                    success: function(response) {
+                        console.log(response, "void")
+                        $('#likeCount').text(response.likeCount);
+
+                        likeButtonClicked = false;
+                        $("#likeButton").removeClass("btn-primary");
+                        $("#likeButton").addClass("btn-default");
+                    
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error, status);
+                    }
+                });
+                
+                return 0;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/pw2023_223040066/tubes/ajax/storeLike', 
+                dataType: 'json',
+                data: {
+                    user_id: userId,
+                    destination_id: destinationId
+                },
+                success: function(response) {
+                    console.log(response, "store")
+                    $('#likeCount').text(response.likeCount);
+
+                    $("#likeButton").removeClass("btn-default");
+                    $("#likeButton").addClass("btn-primary");
+                    
+                    likeButtonClicked = true;
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+  </script>
+
+  <?php } ?>
 </body>
 </html>

@@ -2,7 +2,7 @@
     <div class="content p-2">
         <div class="container">
         <div class="row mt-3">
-            <div class="col-md-10 offset-md-1">
+            <div class="col-md-11">
                 <div class="list-group">
                     <?php if(count($data['destinations']) > 0): ?>
                     <?php foreach($data['destinations'] as $destination): ?>

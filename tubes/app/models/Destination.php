@@ -72,7 +72,18 @@ class Destination
 
     public function findByUid(string $uid)
     {
-        $this->db->query("SELECT destinations.*, categories.name AS category_name FROM $this->table LEFT JOIN categories ON destinations.category_id = categories.id WHERE destinations.uid=:uid");
+        $this->db->query("SELECT 
+            destinations.*, 
+            categories.name AS category_name,
+            user_destinations.name AS user_name_destination
+        FROM $this->table 
+
+        LEFT JOIN categories ON destinations.category_id = categories.id 
+        LEFT JOIN users AS user_destinations ON user_destinations.id = destinations.created_by
+        -- LEFT JOIN likes ON destinations.id = likes.destination_id
+
+        WHERE destinations.uid=:uid");
+
         $this->db->bind('uid', $uid);
         
         return $this->db->single();
