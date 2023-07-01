@@ -18,7 +18,7 @@
                         <div class="user-block">
                         <img class="img-circle" src="<?= BASE_URL ?>/img/default-profile.png" alt="User Image">
                         <span class="username text-primary"><?= $data['destination']['user_name_destination'] ?></span>
-                        <span class="description"><i class="fa fa-tags fa-sm"></i> <?= $data['destination']['category_name']; ?> - <?= getUpdatedAtFormatDestination($data['destination']['updated_at']); ?></span>
+                        <span class="description"><i class="fa fa-tags fa-sm"></i> <?= $data['destination']['category_name']; ?> - <?= getDateFormatToAgo($data['destination']['updated_at']); ?></span>
                     </div>
                 </div>
 

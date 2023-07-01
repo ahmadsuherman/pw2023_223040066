@@ -92,7 +92,7 @@ class AjaxController extends Controller
                         <div class="comment-text">
                         <span class="username">'
                         .$comment['name'].
-                        '<span class="text-muted float-right">'.getUpdatedAtFormatDestination($comment['created_at']).'</span>
+                        '<span class="text-muted float-right">'.getDateFormatToAgo($comment['created_at']).'</span>
                         </span>
                         <div class="row">
                             <div class="col-md-11">'.$comment['content'].'</div>

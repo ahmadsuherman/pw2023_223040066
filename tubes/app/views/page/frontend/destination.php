@@ -17,7 +17,7 @@
 
                   <h5 class="text-white font-weight-bold"><?= $destination['name']; ?></h5>
                   <h6 class="text-white "> <i class="fa fa-tags fa-sm"></i> <?= $destination['category_name']; ?></h6>
-                  <h6>Terakhir diperbarui <?= getUpdatedAtFormatDestination($destination['updated_at']); ?></h6>
+                  <h6>Terakhir diperbarui <?= getDateFormatToAgo($destination['updated_at']); ?></h6>
                   
                 </a>
                 </div>

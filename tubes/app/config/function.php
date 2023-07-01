@@ -2,17 +2,28 @@
 
 date_default_timezone_set('Asia/Jakarta');
 
-function getUpdatedAtFormatDestination($date)
-{
-    $timestamp = strtotime($date);
-    // Hitung selisih waktu dalam detik
-    $diff = time() - $timestamp;
-    // Hitung selisih waktu dalam jam
-    $hours = round($diff / (60 * 60));
-    // Membuat format "x jam yang lalu"
-    $format = "{$hours} jam yang lalu";
-    
-    return $format;
+function getDateFormatToAgo($date) {
+    $nowTime = time();
+    $toTimeDate = strtotime($date);
+    $differenceTime = $nowTime - $toTimeDate;
+
+    if ($differenceTime < 60) {
+        $result = $differenceTime . ' detik yang lalu';
+    } elseif ($differenceTime < 3600) {
+        $result = floor($differenceTime / 60) . ' menit yang lalu';
+    } elseif ($differenceTime < 86400) {
+        $result = floor($differenceTime / 3600) . ' jam yang lalu';
+    } elseif ($differenceTime < 604800) {
+        $result = floor($differenceTime / 86400) . ' hari yang lalu';
+    } elseif ($differenceTime < 2592000) {
+        $result = floor($differenceTime / 604800) . ' minggu yang lalu';
+    } elseif ($differenceTime < 31536000) {
+        $result = floor($differenceTime / 2592000) . ' bulan yang lalu';
+    } else {
+        $result = floor($differenceTime / 31536000) . ' tahun yang lalu';
+    }
+
+    return $result;
 }
 
 function now(){

@@ -51,6 +51,8 @@
                                         <tr><th>Latitude</th><td><?= $data['destination']['latitude'] ?></td></tr>
                                         <tr><th>Longitude</th><td><?= $data['destination']['longitude'] ?></td></tr>
                                         <tr><th>Tgl Dibuat</th><td><?= $data['destination']['created_at'] ?></td></tr>  
+                                        <tr><th>Tgl Diperbarui</th><td><?= $data['destination']['updated_at'] ?></td></tr>  
+                                        
                                     </tbody>
                                 </table>
                             </div>
