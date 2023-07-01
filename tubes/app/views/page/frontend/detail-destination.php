@@ -1,9 +1,17 @@
 <div class="content-wrapper">
     <div class="content p-2 pt-1 pb-1">
+        
       <div class="container">
         <div class="row">
 
             <div class="col-md-12 mt-3">
+            
+                <div id="isDemoAlert" class="alert alert-warning alert-dismissible fade show d-none" role="alert">
+                    Akun demo tidak dapat menambah & mengubah data
+                    <button onclick="isDemoCloseButton()" id="isDemoCloseButton" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
                 <div class="card card-widget">
                     <div class="card-header">
@@ -20,52 +28,28 @@
                     <img style="min-width: 100%" class="img-fluid rounded float-left mb-2" src="<?= BASE_URL ?>/uploads/img/destination/<?= $data['destination']['image'] ?>" alt="Gambar <?= $data['destination']['name']; ?>">
                     
                     <p><?= htmlspecialchars_decode(stripslashes($data['destination']['description'])) ?></p>
+                    
                     <?php if(isset($_SESSION['user'])): ?>
                     <button id="likeButton" class="btn btn-<?= $data['checkLike'] == true ? 'primary' : 'default' ?> btn-sm"><i class="far fa-thumbs-up"></i> Suka</button>
                     <?php endif; ?>
+
                     <span class="float-right text-muted"><span id="likeCount"><?= count($data['likes']); ?></span> Suka - <span id="commentCount"><?= count($data['comments']) ?></span> Komentar</span>
                 </div>
 
                 <?php if(isset($_SESSION['user'])): ?>
-                <div class="card-footer card-comments">
-                <?php 
-                    if(count($data['comments']) > 0):
+                <div id="getComments" class="card-footer card-comments">
+                
+                </div>
 
-                    foreach($data['comments'] as $comment): ?>
-                    <div id="" class="card-comment">
-                        <img class="img-circle img-sm" src="<?= BASE_URL ?>/img/default-profile.png" alt="User Image">
-                        <div class="comment-text">
-                        <span class="username">
-                        <?= $comment['name']; ?>
-                        <span class="text-muted float-right"><?= getUpdatedAtFormatDestination($comment['created_at']); ?></span>
-                        </span>
-                        <?= $comment['content'] ?>
-                        </div>
-                    </div>
-                    
-                    <?php endforeach; ?>
-                    
-                    <div id="cardComment" class="card-comment d-none">
-                        <img class="img-circle img-sm" src="<?= BASE_URL ?>/img/default-profile.png" alt="User Image">
-                        <div class="comment-text">
-                        <span class="username">
-                        <?= $_SESSION['user']['name'] ?>
-                        <span class="text-muted float-right"><?= getUpdatedAtFormatDestination($comment['created_at']); ?></span>
-                        </span>
-                        <span id="commentSection"></span>
-                        </div>
-                    </div>
-                    <?php else: ?>
-                    <div class="card-comment">
-                        <h4 class="text-center mt-2">Tidak ada komentar</h4>
-                    </div>
-                <?php endif; ?>
+                
+                <div class="card-footer">
+
                     <form action="#" method="post" id="commentForm">
-                        <img class="img-fluid img-circle img-sm" src="<?= BASE_URL ?>/img/default-profile.png" alt="Alt Text">
+                        <img class="img-fluid img-circle img-sm" src="<?= BASE_URL ?>/img/default-profile.png" alt="Default Photo Profile">
 
                         <div class="img-push">
                             <div class="input-group">
-                            <input id="commentText"  type="text" name="message" placeholder="Type Message ..." class="form-control form-control-sm">
+                            <input id="commentText"  type="text" name="message" placeholder="Tulis Komentar ..." class="form-control form-control-sm">
                                 <span class="input-group-append">
                                     <button type="submit" class="btn btn-warning btn-sm">Kirim</button>
                                 </span>

@@ -166,40 +166,47 @@ $(function () {
 
 <?php if(!empty($data['ajaxComment'])) { ?>
 <script>
+
+    let userId = '<?php if(isset($_SESSION['user'])) : echo $_SESSION['user']['uid']; endif; ?>'
+        , destinationId = '<?= $data['destination']['uid'] ?>'
+        , countDestinationComment = <?= count($data['comments']) ?>
+        , offset = 0
+        , limit = 5
+        , isDemo = '<?php if(isset($_SESSION['user'])) : echo $_SESSION['user']['is_demo']; endif; ?>';
+
     $(document).ready(function() {
 
-        let userId = '<?= $_SESSION['user']['uid'] ?>'
-        , destinationId = '<?= $data['destination']['uid'] ?>'
-
-        $('#commentForm').submit(function(e) {
-            e.preventDefault(); // Mencegah formulir dikirim ulang secara normal
+        loadComments();
         
+        $('#commentForm').submit(function(e) {
+            
+            e.preventDefault(); 
+            
+            if(isDemo){
+                $("#isDemoAlert").removeClass("d-none");
+                return 0;
+            }
+            
             let commentText = $('#commentText').val();
 
             $.ajax({
                 type: 'POST',
                 url: '/pw2023_223040066/tubes/ajax/storeComment', 
                 data: {
-                comment: commentText,
                     user_id: userId,
                     destination_id: destinationId,
+                    content: commentText,
+                    offset: offset, 
+                    limit: limit,
                 },
                 success: function(response) {
-                    console.log(response)
-                    // Komentar berhasil dikirim, lakukan apa pun yang Anda inginkan setelah ini
-
-                    // Mengosongkan input komentar
                     $('#commentText').val('');
-                    a = document.getElementById("cardComment");
-                    a.setAttribute("class", "card-comment");
-                    // Menambahkan komentar baru ke daftar komentar
-                    $('#commentSection').append('<p>' + commentText + '</p>');
-
-                    var commentCount = parseInt($('#commentCount').text());
+                    let commentCount = parseInt($('#commentCount').text());
                     $('#commentCount').text(commentCount + 1);
+
+                    loadComments();
                 },
                 error: function(xhr, status, error) {
-                    // Terjadi kesalahan saat mengirim komentar, tangani sesuai kebutuhan Anda
                     console.error(error);
                 }
             });
@@ -207,7 +214,10 @@ $(function () {
 
         var likeButtonClicked = <?= $data['checkLike'] == true ? 'true' : 'false'; ?>;
         $('#likeButton').click(function() {
-
+            if(isDemo){
+                $("#isDemoAlert").removeClass("d-none");
+                return 0;
+            }
             if (likeButtonClicked) {
 
                 $.ajax({
@@ -219,7 +229,6 @@ $(function () {
                         destination_id: destinationId
                     },
                     success: function(response) {
-                        console.log(response, "void")
                         $('#likeCount').text(response.likeCount);
 
                         likeButtonClicked = false;
@@ -244,7 +253,6 @@ $(function () {
                     destination_id: destinationId
                 },
                 success: function(response) {
-                    console.log(response, "store")
                     $('#likeCount').text(response.likeCount);
 
                     $("#likeButton").removeClass("btn-default");
@@ -257,7 +265,66 @@ $(function () {
                 }
             });
         });
+  
     });
+
+    function loadComments() {
+            
+        $.ajax({
+            url: '/pw2023_223040066/tubes/ajax/getComment',
+            type: 'POST',
+            // dataType: 'json',
+            data: {
+                user_id: userId,
+                destination_id: destinationId,
+                offset: offset, 
+                limit: limit,
+            },
+            success: function(response) {
+               $('#getComments').html(response);     
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+
+        });
+    }
+
+    function loadMoreButton()
+    {
+        limit = limit + 5;
+        loadComments();
+    }
+
+    function LoadLessButton()
+    {
+        limit = 5;
+        loadComments();
+    }
+
+    function deleteCommentButton(uid)
+    {
+        $.ajax({
+            url: '/pw2023_223040066/tubes/ajax/deleteComment',
+            method: 'POST',
+            // dataType: 'json',
+            data: { 
+                uid: uid
+            },
+            success: function(response) {
+                console.log(response)
+                loadComments();
+            },
+            error: function(xhr, status, error) {
+                console.log('Error: ' + error);
+            }
+        });
+    }
+
+    function isDemoCloseButton()
+    {
+        $("#isDemoAlert").addClass("d-none");
+    }
   </script>
 
   <?php } ?>

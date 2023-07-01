@@ -43,11 +43,13 @@ class DestinationsController extends Controller
         $data['updateStatus'] = 'destination/updateStatus';
         
         $data['destination'] = $this->model('Destination')->findByUid(uid: $uid);        
-        $data['comments'] = $this->model('Comment')->getCommentDestination(uid: $uid);
+        $data['comments'] = $this->model('Comment')->countTotalCommentDestination(
+            uid: $uid,
+        );
         $data['likes'] = $this->model('Like')->getLikeDestination(uid: $uid);
         
-        $data['checkLike'] = is_in_array($data['likes'], 'user_id', isset($_SESSION['user']['id']));
-
+        if(isset($_SESSION['user'])): $data['checkLike'] = is_in_array($data['likes'], 'user_id', $_SESSION['user']['id']); endif;
+        
         $data['parsley'] = true;
         $data['leaflet'] = true;
         $data['showLeaflet'] = true;

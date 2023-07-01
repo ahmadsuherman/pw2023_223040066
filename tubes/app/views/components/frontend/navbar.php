@@ -20,6 +20,11 @@
       </ul>
 
       <ul class="navbar-nav ml-auto">
+        <?php if(isset($_SESSION['user']['is_demo']) == true): ?>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a class="nav-link rounded text-center bg-warning pe-auto">Akun Demo</a>
+        </li>
+        <?php endif; ?>
         <li class="nav-item">
             <a class="nav-link" data-toggle="tooltip" data-placement="top" title="Cari Destinasi" data-widget="navbar-search" data-target="#navbar-search3" href="#" role="button">
             <i class="fas fa-search"></i>

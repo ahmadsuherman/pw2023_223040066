@@ -92,7 +92,7 @@ function checkIsDemo(){
     if($_SESSION['user']['is_demo'] == true){
         $alert = [
             'type'  => 'warning',
-            'message' => 'Akun demo tidak dapat melakukan menambah & mengubah data',
+            'message' => 'Akun demo tidak dapat menambah & mengubah data',
         ];
 
         $_SESSION['alert'] = $alert; 
