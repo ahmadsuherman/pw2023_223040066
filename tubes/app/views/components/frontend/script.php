@@ -172,7 +172,7 @@ $(function () {
         , countDestinationComment = <?= count($data['comments']) ?>
         , offset = 0
         , limit = 5
-        , isDemo = '<?php if(isset($_SESSION['user'])) : echo $_SESSION['user']['is_demo']; endif; ?>';
+        , isDemo = <?php if(isset($_SESSION['user'])) : echo $_SESSION['user']['is_demo']; endif; ?>;
 
     $(document).ready(function() {
 

@@ -9,7 +9,7 @@
         
     </ul>
     <ul class="navbar-nav ml-auto">
-        <?php if(isset($_SESSION['user']['is_demo']) == true): ?>
+        <?php if($_SESSION['user']['is_demo']): ?>
         <li class="nav-item d-none d-sm-inline-block">
             <a class="nav-link rounded text-center bg-warning pe-auto">Akun Demo</a>
         </li>
