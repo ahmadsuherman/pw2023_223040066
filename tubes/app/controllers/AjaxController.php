@@ -88,7 +88,7 @@ class AjaxController extends Controller
                     $checkComment = $comment['user_id'] == $user['id'] ? '<div class="col-md-1 m-auto"><button onclick="deleteCommentButton(\'' . $comment['uid'] . '\')" id="deleteCommentButton" class="btn btn-danger btn-sm float-right"><i class="fa fa-trash"></i></button></div>' : '';
 
                     $comments[] = '<div class="card-comment">
-                        <img class="img-circle img-sm" src="/pw2023_223040066/tubes/img/default-profile.png" alt="User Image">
+                        <img class="img-circle img-sm" src="'.BASE_URL.'/img/default-profile.png" alt="User Image">
                         <div class="comment-text">
                         <span class="username">'
                         .$comment['name'].
@@ -166,6 +166,63 @@ class AjaxController extends Controller
     
             header('Content-Type: application/json');
             echo json_encode($response);
+        }
+    }
+
+    public function getDestinations(){
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            
+            $categoryUid = stripslashes(strip_tags(htmlspecialchars($_POST['category_uid'], ENT_QUOTES)));
+
+            $user = $this->model('User')->findByUid($userUid);
+
+            $data['comments'] = $this->model('Comment')->getCommentDestination(
+                uid: $destinationUid,
+                offset: $offset,
+                limit: $limit,
+            );
+
+            $destinations = [];
+            
+            if(count($data['comments']) == 0):
+                $comments = '<h4 class="text-center mt-4">Tidak ada komentar</h4>';
+            else:
+                foreach($data['comments'] as $comment):
+                    $checkComment = $comment['user_id'] == $user['id'] ? '<div class="col-md-1 m-auto"><button onclick="deleteCommentButton(\'' . $comment['uid'] . '\')" id="deleteCommentButton" class="btn btn-danger btn-sm float-right"><i class="fa fa-trash"></i></button></div>' : '';
+
+                    $comments[] = '<div class="card-comment">
+                        <img class="img-circle img-sm" src="'.BASE_URL.'/img/default-profile.png" alt="User Image">
+                        <div class="comment-text">
+                        <span class="username">'
+                        .$comment['name'].
+                        '<span class="text-muted float-right">'.getDateFormatToAgo($comment['created_at']).'</span>
+                        </span>
+                        <div class="row">
+                            <div class="col-md-11">'.$comment['content'].'</div>
+                            '. $checkComment .'
+                        </div>
+                        </span>
+                        </div>
+                    </div>';
+    
+                endforeach;
+
+                if(count($data['countTotalComment']) <= 5):
+                    
+                elseif(count($data['comments']) >= $limit):
+                    array_push($comments, '<div class="text-center mt-4">
+                        <button onclick="loadMoreButton()" class="btn btn-primary btn-sm" id="loadMoreButton">Tampilkan Komentar Lainnya</button>
+                    </div>');
+                else:
+                    array_push($comments, '<div class="text-center mt-4">
+                        <button onclick="LoadLessButton()" class="btn btn-primary btn-sm" id="LoadLessButton">Tampilkan Lebih Sedikit</button>
+                    </div>');
+                endif;
+            endif;
+
+            header('Content-Type: application/json');
+            echo json_encode($comments);
         }
     }
 }

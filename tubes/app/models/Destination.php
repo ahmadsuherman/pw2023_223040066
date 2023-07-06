@@ -197,4 +197,25 @@ class Destination
 
         return $this->db->resultSet();
     }
+
+    public function getDestinationPopulers(int $limit)
+    {
+        $this->db->query("SELECT 
+            destinations.uid,
+            destinations.name, 
+            destinations.created_at,
+            destinations.image,
+            categories.name AS category_name,
+            COUNT(likes.id) AS total_likes
+        FROM $this->table 
+        LEFT JOIN categories ON destinations.category_id = categories.id 
+        LEFT JOIN likes ON likes.destination_id = destinations.id 
+        WHERE destinations.deleted_at <=> null
+        GROUP BY destinations.id
+        ORDER BY total_likes DESC
+        LIMIT :limit");
+
+        $this->db->bind('limit', $limit);
+        return $this->db->resultSet();
+    }
 }

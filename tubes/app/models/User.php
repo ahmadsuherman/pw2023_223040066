@@ -116,7 +116,8 @@ class User
             COUNT(*) AS total_user  
         FROM $this->table
         WHERE deleted_at <=> null
-        GROUP BY DATE_FORMAT(created_at, '%Y-%m-%d')");
+        GROUP BY DATE_FORMAT(created_at, '%Y-%m-%d')
+        LIMIT 10");
 
         return $this->db->resultSet();
     }

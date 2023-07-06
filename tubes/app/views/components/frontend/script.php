@@ -223,7 +223,7 @@ $(function () {
                 $.ajax({
                     type: 'POST',
                     url: '/pw2023_223040066/tubes/ajax/voidLike',
-                    dataType: 'json',
+                    // dataType: 'json',
                     data: {
                         user_id: userId,
                         destination_id: destinationId
@@ -247,7 +247,7 @@ $(function () {
             $.ajax({
                 type: 'POST',
                 url: '/pw2023_223040066/tubes/ajax/storeLike', 
-                dataType: 'json',
+                // dataType: 'json',
                 data: {
                     user_id: userId,
                     destination_id: destinationId
@@ -325,8 +325,8 @@ $(function () {
     {
         $("#isDemoAlert").addClass("d-none");
     }
-  </script>
+</script>
+<?php } ?>
 
-  <?php } ?>
 </body>
 </html>

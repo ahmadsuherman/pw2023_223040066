@@ -13,7 +13,7 @@ class DestinationsController extends Controller
 
         $data['title'] = 'Home';
         $data['parsley'] = true;
-
+        
         $totalItem = $this->model('Destination')->getTotalItem();
         $totalItemByPage = 12;
         $totalPage = ceil($totalItem / $totalItemByPage);
@@ -50,12 +50,15 @@ class DestinationsController extends Controller
         
         if(isset($_SESSION['user'])): $data['checkLike'] = is_in_array($data['likes'], 'user_id', $_SESSION['user']['id']); endif;
         
+        $data['newDestinations'] = $this->model('Destination')->getNewDestinations();
+        $data['destinationPopulers'] = $this->model('Destination')->getDestinationPopulers(limit: 10);
+        
         $data['parsley'] = true;
         $data['leaflet'] = true;
         $data['showLeaflet'] = true;
         $data['shareButton'] = true;
         $data['ajaxComment'] = true;
-        
+
         $this->view('components/frontend/header', $data);
         $this->view('components/frontend/navbar', $data);
         
