@@ -16,7 +16,7 @@
         <?php endif; ?>
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                <img src="<?= BASE_URL ?>/img/default-profile.png" class="user-image img-circle elevation-2" alt="Gambar <?= $_SESSION['user']['name']; ?>">
+                <img src="<?= getProfilePicture($_SESSION['user']['avatar'])?>" class="user-image img-circle elevation-2" alt="Gambar <?= $_SESSION['user']['name']; ?>">
                 <span class="d-none d-md-inline">
                 <?php if(isset($_SESSION['user'])) : echo $_SESSION['user']['name']; endif; ?>
                 </span>
@@ -24,7 +24,7 @@
             
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                 <li class="user-header bg-primary">
-                    <img src="<?= BASE_URL ?>/img/default-profile.png" class="img-circle elevation-2 prof_image" alt="Gambar <?= $_SESSION['user']['name']; ?>">
+                    <img src="<?= getProfilePicture($_SESSION['user']['avatar'])?>" class="img-circle elevation-2 prof_image" alt="Gambar <?= $_SESSION['user']['name']; ?>">
                     <p>
                     <?php if(isset($_SESSION['user'])) : echo $_SESSION['user']['name']; endif; ?>
                         <small style="color:white"><?php if(isset($_SESSION['user'])) : echo $_SESSION['user']['email']; endif; ?></small>

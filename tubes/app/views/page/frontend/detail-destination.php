@@ -16,7 +16,7 @@
                         <div class="">
                             <div class="card-header">
                                 <div class="user-block">
-                                <img class="img-circle" src="<?= BASE_URL ?>/img/default-profile.png" alt="User Image">
+                                <img class="img-circle" src="<?= getProfilePicture($data['destination']['user_avatar']) ?>" alt="User Image">
                                 <span class="username text-primary"><?= $data['destination']['user_name_destination'] ?></span>
                                 <span class="description"><i class="fa fa-tags fa-sm"></i> <?= $data['destination']['category_name']; ?> - <?= getDateFormatToAgo($data['destination']['updated_at']); ?></span>
                             </div>
@@ -40,12 +40,10 @@
                         <div id="getComments" class="card-footer card-comments">
                         
                         </div>
-
                         
                         <div class="card-footer">
-
                             <form action="#" method="post" id="commentForm">
-                                <img class="img-fluid img-circle img-sm" src="<?= BASE_URL ?>/img/default-profile.png" alt="Default Photo Profile">
+                                <img class="img-fluid img-circle img-sm" src="<?= getProfilePicture($data['destination']['user_avatar']) ?>" alt="Default Photo Profile">
 
                                 <div class="img-push">
                                     <div class="input-group">

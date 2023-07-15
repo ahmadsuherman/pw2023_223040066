@@ -440,5 +440,23 @@
         }
     </script>
     <?php } ?>
+
+    <?php if(!empty($data['changeAvatar'])) { ?>
+    <script>
+        function previewProfilePicture(event) {
+            var fileInput = event.target;
+            var file = fileInput.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                var imagePreview = document.getElementById('imagepPreviewProfilePicture');
+                imagePreview.innerHTML = '<img class="profile-user-img img-fluid img-circle" src="' + e.target.result + '" alt="User profile picture">';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+    <?php } ?>
 </body>
 </html>

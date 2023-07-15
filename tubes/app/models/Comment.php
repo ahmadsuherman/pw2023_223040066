@@ -18,7 +18,8 @@ class Comment
             comments.user_id,
             comments.destination_id,
             comments.created_at,
-            users.name
+            users.name,
+            users.avatar
         FROM $this->table 
         
         LEFT JOIN destinations ON destinations.id = comments.destination_id

@@ -75,7 +75,8 @@ class Destination
         $this->db->query("SELECT 
             destinations.*, 
             categories.name AS category_name,
-            user_destinations.name AS user_name_destination
+            user_destinations.name AS user_name_destination,
+            user_destinations.avatar AS user_avatar
         FROM $this->table 
 
         LEFT JOIN categories ON destinations.category_id = categories.id 

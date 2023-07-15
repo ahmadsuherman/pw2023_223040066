@@ -66,10 +66,8 @@ function uploadImage($requestName, $file, $dir)
         $file = $fileRename; // untuk keperluan Query INSERT
 
         move_uploaded_file($_FILES[$requestName]['tmp_name'], $pathImage);
-    } else {
-        $file = 'img/default.png';
-    }
-
+    } 
+    
     return $file;
 }
 
@@ -130,4 +128,15 @@ function is_in_array($array, $key, $key_value){
     return $within_array;
 }
 
+function getProfilePicture($avatar)
+{
+    if(is_null($avatar)){
+        $avatar = BASE_URL . '/img/default-profile.png';
+    } else {
+        $avatar = BASE_URL . '/uploads/img/users/' . $avatar;
+    }
+
+    return $avatar;
+    
+}
 ?>

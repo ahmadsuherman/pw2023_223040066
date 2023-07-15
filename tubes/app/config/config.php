@@ -14,5 +14,5 @@ const VERSION               = 'v1.0.0';
 const DB_HOST = 'localhost';
 const DB_USER = 'root';
 const DB_PASS = 'root';
-const DB_NAME = '223040066_tubes';
+const DB_NAME = '223040066_db_tubes';
 

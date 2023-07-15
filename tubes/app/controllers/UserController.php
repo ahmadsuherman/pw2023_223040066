@@ -37,6 +37,7 @@ class UserController extends Controller
     {
         $data['title'] = 'Tambah Pengguna';
         $data['parsley'] = true;
+        $data['changeAvatar'] = true;
 
         $this->view('components/backend/header', $data);
         $this->view('components/backend/navbar', $data);
@@ -51,6 +52,19 @@ class UserController extends Controller
     {
         checkIsDemo();
         if (isset($_POST['submit'])) {
+
+            $maxSize    = 2 * 1024 * 1024;
+            if ($_FILES["avatar"]["size"] > $maxSize) {
+                $alert = [
+                    'type'      => 'danger',
+                    'message'   => 'Maksimal ukuran gambar 2MB',
+                ];
+    
+                $_SESSION['alert'] = $alert;
+                header("location:" . BASE_URL . "/profile");
+                exit();
+            } 
+            
             $name       = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
             $email      = stripslashes(strip_tags(htmlspecialchars($_POST['email'], ENT_QUOTES)));
             $password   = stripslashes(strip_tags(htmlspecialchars($_POST['password'], ENT_QUOTES)));
@@ -59,11 +73,20 @@ class UserController extends Controller
             $userCheck = $this->model('User')->cekUser(email: $email);
 
             if (!$userCheck) {
+
+                if($_FILES['avatar']['error'] == 4){
+                    $avatar 	    = null;
+                } else {
+                    $avatar     = $_FILES['avatar']['name'];
+                    $avatar     = uploadImage('avatar', $avatar, 'uploads/img/users/');
+                }
+
                 $this->model('User')->add(
                     name: $name,
                     email: $email,
                     password: password_hash($password, PASSWORD_DEFAULT),
                     level: $level,
+                    avatar: $avatar
                 );
 
                 $alert = [
@@ -93,6 +116,7 @@ class UserController extends Controller
         $data['title'] = 'Ubah Pengguna';
         $data['user'] = $this->model('User')->findByUid(uid: $uid);
         $data['parsley'] = true;
+        $data['changeAvatar'] = true;
         
         if (!$data['user']) {
             header("location:" . BASE_URL . "/user");
@@ -111,14 +135,44 @@ class UserController extends Controller
     {
         checkIsDemo();
         if (isset($_POST['submit'])) {
+
+            $maxSize    = 2 * 1024 * 1024;
+            if ($_FILES["avatar"]["size"] > $maxSize) {
+                $alert = [
+                    'type'      => 'danger',
+                    'message'   => 'Maksimal ukuran gambar 2MB',
+                ];
+    
+                $_SESSION['alert'] = $alert;
+                header("location:" . BASE_URL . "/profile");
+                exit();
+            } 
+
             $name = stripslashes(strip_tags(htmlspecialchars($_POST['name'], ENT_QUOTES)));
             $email = stripslashes(strip_tags(htmlspecialchars($_POST['email'], ENT_QUOTES)));
             $level = stripslashes(strip_tags(htmlspecialchars($_POST['level'], ENT_QUOTES)));
             
             $userCheck = $this->model('User')->cekUser(email: $email);
+            $user = $this->model('User')->findByUid(uid: $uid);
 
             if (!$userCheck) {
-                $this->model('User')->update(uid: $uid, name: $name, email: $email, level: $level);
+                if($_FILES['avatar']['error'] == 4){
+                    $avatar 	    = $user['avatar'];
+                } else {
+                    $avatar     = $_FILES['avatar']['name'];
+                    $avatar     = uploadImage('avatar', $avatar, 'uploads/img/users/');
+                    if(!is_null($userCheck['avatar'])){
+                        unlink('uploads/img/users/' . $user['avatar']);   
+                    }
+                }
+
+                $this->model('User')->update(
+                    uid: $uid,
+                    name: $name, 
+                    email: $email, 
+                    level: $level,
+                    avatar: $avatar
+                );
             
                 $alert = [
                     'type'  => 'success',

@@ -88,7 +88,7 @@ class AjaxController extends Controller
                     $checkComment = $comment['user_id'] == $user['id'] ? '<div class="col-md-1 m-auto"><button onclick="deleteCommentButton(\'' . $comment['uid'] . '\')" id="deleteCommentButton" class="btn btn-danger btn-sm float-right"><i class="fa fa-trash"></i></button></div>' : '';
 
                     $comments[] = '<div class="card-comment">
-                        <img class="img-circle img-sm" src="'.BASE_URL.'/img/default-profile.png" alt="User Image">
+                        <img class="img-circle img-sm" src="'.getProfilePicture($comment['avatar']).'" alt="User Image">
                         <div class="comment-text">
                         <span class="username">'
                         .$comment['name'].

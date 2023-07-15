@@ -72,29 +72,42 @@ class User
         return $this->db->single();
     }
 
-    public function update(string $uid, string $name, string $email, string $level)
+    public function update(string $uid, string $name, string $email, string $level, $avatar)
     {
         $this->db->query("UPDATE $this->table SET 
             name=:name, 
             email=:email,
-            level=:level
+            level=:level,
+            avatar=:avatar
         WHERE uid=:uid");
         $this->db->bind('uid', $uid);
         $this->db->bind('name', $name);
         $this->db->bind('email', $email);
         $this->db->bind('level', $level);
+        $this->db->bind('avatar', $avatar);
 
         return $this->db->execute();
     }
 
-    public function updateProfile(string $uid, string $name, string $email)
+    public function updateProfile(string $uid, string $name, string $avatar)
     {
         $this->db->query("UPDATE $this->table SET 
-            name=:name, 
-            email=:email
+            name=:name,
+            avatar=:avatar
         WHERE uid=:uid");
         $this->db->bind('uid', $uid);
         $this->db->bind('name', $name);
+        $this->db->bind('avatar', $avatar);
+        
+        return $this->db->execute();
+    }
+
+    public function updateEmail(string $uid, string $email)
+    {
+        $this->db->query("UPDATE $this->table SET 
+            email=:email
+        WHERE uid=:uid");
+        $this->db->bind('uid', $uid);
         $this->db->bind('email', $email);
 
         return $this->db->execute();
@@ -127,6 +140,7 @@ class User
         $this->db->query("SELECT 
             name,
             email,
+            avatar,
             date_format(created_at, '%Y-%m-%d') as created_at
         FROM $this->table
         WHERE deleted_at <=> null 
@@ -142,6 +156,7 @@ class User
             uid,
             name,
             email,
+            avatar,
             level
         FROM $this->table 
         WHERE deleted_at <=> null
@@ -151,7 +166,7 @@ class User
         return $this->db->resultSet();
     }
 
-    public function add(string $name, string $email, string $password, string $level)
+    public function add(string $name, string $email, string $password, string $level, $avatar)
     {
         $this->db->query("INSERT INTO $this->table(
             uid,
@@ -159,6 +174,7 @@ class User
             email,
             password,
             level,
+            avatar,
             created_at, 
             updated_at) VALUE (
                 :uid,
@@ -166,6 +182,7 @@ class User
                 :email,
                 :password,
                 :level,
+                :avatar,
                 :created_at,
                 :updated_at
             )");
@@ -175,6 +192,7 @@ class User
         $this->db->bind('email', $email);
         $this->db->bind('password', $password);
         $this->db->bind('level', $level);
+        $this->db->bind('avatar', $avatar);
         $this->db->bind('created_at', now());
         $this->db->bind('updated_at', now());
         

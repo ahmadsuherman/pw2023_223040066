@@ -28,6 +28,9 @@
                             <h3 class="card-title">Profile</h3>
                         </div>
                         <div class="card-body">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle" src="<?= getProfilePicture($data['user']['avatar'])?>" alt="Avatar <?= $data['user']['name']; ?>">
+                            </div>
                             <strong>
                                 <i class="fas fa-user mr-1"></i> Nama </strong>
                             <p class="text-muted"> <?= $data['user']['name']; ?> </p>
@@ -47,6 +50,9 @@
                                     <a class="nav-link active" href="#settings" data-toggle="tab">Settings</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" href="#email" data-toggle="tab">Email</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" href="#password" data-toggle="tab">Kata Sandi</a>
                                 </li>
                                 
@@ -55,14 +61,33 @@
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="tab-pane active" id="settings">
-                                    <form data-form="validate" class="form-horizontal" action="<?= BASE_URL ?>/profile/update" method="post">
+                                    <form data-form="validate" class="form-horizontal" action="<?= BASE_URL ?>/profile/update" method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="submit">
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <div id="imagepPreviewProfilePicture">
+                                                    <img class="profile-user-img img-fluid img-circle" src="<?= getProfilePicture($data['user']['avatar'])?>" alt="Avatar <?= $data['user']['name'] ?>">
+                                                </div>
+                                                <input name="avatar" onchange="previewProfilePicture(event)" accept="image/*" type="file" style="position: absolute; bottom: 0; left: 0;">
+                                            </div>
+                                        </div>
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="name" class="form-control" id="inputName" placeholder="Nama" value="<?= $data['user']['name'] ?>" required>
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-primary"> <i class="fa fa-save"> </i> Simpan</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="tab-pane" id="email">
+                                <form data-form="validate" class="form-horizontal" action="<?= BASE_URL ?>/profile/updateEmail" method="post">
+                                    <input type="hidden" name="submit">
                                         <div class="form-group row">
                                             <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                             <div class="col-sm-10">

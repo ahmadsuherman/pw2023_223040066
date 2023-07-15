@@ -140,7 +140,10 @@
                             <ul class="products-list product-list-in-card pl-2 pr-2">
                                 <?php foreach($data['getNewUserRegistrationDashboard'] as $key => $newUserRegistration): ?>
                                 <li class="item">
-                                    <div class="new-user ml-3">
+                                    <div class="product-img">
+                                        <img src="<?= getProfilePicture($newUserRegistration['avatar']) ?>" alt="Avatar <?= $newUserRegistration['name'] ?>" class="img-size-50 img-circle profile-user-img">
+                                    </div>
+                                    <div class="product-info">
                                         <span href="javascript:void(0)" class="product-title"><?= $newUserRegistration['name'] ?></span>
                                         <span class="badge badge-warning float-right"><?= getDateFormatDFYIndonesian($newUserRegistration['created_at']) ?></span></span>
                                         <span class="product-description m-auto">

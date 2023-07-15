@@ -30,9 +30,17 @@
                         <div class="card-header">
                             <h3 class="card-title">Tambah Pengguna</h3>
                         </div>
-                        <form class="form-horizontal" data-form="validate" action="<?= BASE_URL ?>/user/store" method="post">
+                        <form class="form-horizontal" data-form="validate" action="<?= BASE_URL ?>/user/store" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="submit">
                             <div class="card-body">
+                                <div class="form-group row">
+                                    <div class="offset-3 col-md-6">
+                                        <div id="imagepPreviewProfilePicture">
+                                            <img class="profile-user-img img-fluid img-circle" src="<?= BASE_URL ?>/img/default.png" alt="Default Avatar">
+                                        </div>
+                                        <input name="avatar" onchange="previewProfilePicture(event)" accept="image/*" type="file" style="position: absolute; bottom: 0; left: 0;">
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label for="iName" class="col-form-label col-sm-3 text-lg-right text-left">Nama Lengkap</label>
                                     <div class="col-sm-6">

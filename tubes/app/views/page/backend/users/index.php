@@ -37,6 +37,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-right" width="5">No</th>
+                                        <th>Avatar</th>
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Tipe Pengguna</th>
@@ -48,6 +49,7 @@
                                     foreach ($data['users'] as $key => $user) : ?>
                                     <tr>
                                         <td><?= $key + 1 ?></td>
+                                        <td><img src="<?= getProfilePicture($user['avatar']) ?>" class="img-size-50 img-circle profile-user-img" alt="Gambar <?= $user['name']; ?>"></td>
                                         <td><?= $user['name']; ?></td>
                                         <td><?= $user['email']; ?></td>
                                         <td><?= $user['level']; ?></td>
